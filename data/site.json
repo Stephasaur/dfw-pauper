@@ -2,7 +2,10 @@
   "name": "DFW Pauper",
   "tagline": "Commons-only Magic across Dallas-Fort Worth",
   "url": "https://stephasaur.github.io/dfw-pauper/",
-  "_how_to_edit": "Set url to the public website address once it's live. Paste each profile URL between the quotes. Leave a link empty to hide it.",
+  "discord_name": "DFW Pauper People",
+  "discord_members": 219,
+  "deck_cost": "Under $100",
+  "_how_to_edit": "Set url to the public website address. discord_members and deck_cost show in the home page stats (leave empty to hide). Paste each profile URL between the quotes. Leave a link empty to hide it.",
   "links": [
     {
       "label": "Discord",
