@@ -95,6 +95,8 @@ section.view { display: grid; gap: 28px; }
 .dayfilter button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
 .dayfilter button .n { color: var(--muted); margin-left: 4px; font-weight: 600; }
 .dayfilter button[aria-pressed="true"] .n { color: var(--hot); }
+.dayfilter button.zero { color: var(--muted); border-style: dashed; }
+.dayfilter button.zero[aria-pressed="true"] { color: var(--white); border-style: solid; }
 
 /* First-deck picks */
 .picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
@@ -323,7 +325,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <ol class="steps">
         <li><div><h3>Pick a style</h3><p>Look at the <a href="#meta">current meta</a> and choose what sounds fun. Aggro decks like Mono Red Rally or Elves are simple to pilot and usually among the cheapest to build.</p></div></li>
         <li><div><h3>Grab a list</h3><p>Copy a recent winning list from <a href="https://www.mtggoldfish.com/metagame/pauper" target="_blank" rel="noopener">MTGGoldfish</a> into <a href="https://moxfield.com" target="_blank" rel="noopener">Moxfield</a> or <a href="https://archidekt.com" target="_blank" rel="noopener">Archidekt</a> to see the price and swap cards you already own.</p></div></li>
-        <li><div><h3>Buy the cards</h3><p>Check your local game store first, since they host the events. Online, <a href="https://www.tcgplayer.com" target="_blank" rel="noopener">TCGplayer</a> and <a href="https://www.cardkingdom.com" target="_blank" rel="noopener">Card Kingdom</a> sell most commons for cents.</p></div></li>
+        <li><div><h3>Buy the cards</h3><p>Support your local game store (LGS) first. They're the ones hosting Pauper nights, and buying singles there keeps those events going. <a href="https://yestcg.com/" target="_blank" rel="noopener">Yes TCG</a> is a fantastic resource for finding the cards you need in stock at local stores. If you still need something, <a href="https://www.tcgplayer.com" target="_blank" rel="noopener">TCGplayer</a> and <a href="https://www.cardkingdom.com" target="_blank" rel="noopener">Card Kingdom</a> sell most commons for cents.</p></div></li>
         <li><div><h3>Come play</h3><p>Show up to any <a href="#events">event on our list</a>. Ask in the <a href="#faq" data-faq="discord">local Pauper Discord</a> to borrow a deck first. Regulars are happy to lend one.</p></div></li>
       </ol>
     </div>
@@ -504,8 +506,10 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       return '<div class="stack"><h3 class="region">' + esc(label) + ' <span class="count">' + items.length + (items.length === 1 ? ' event' : ' events') + '</span></h3>' + body + '</div>';
     }).join("");
     var weeklyEl = document.getElementById("weekly-events");
-    weeklyEl.classList.toggle("cols", regions.length > 1 && !sampleNote);
-    weeklyEl.innerHTML = weekly.length ? sampleNote + grouped : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
+    var noneThisDay = dayFilter !== "All" && !weekly.length && allWeekly.length;
+    weeklyEl.classList.toggle("cols", regions.length > 1 && !sampleNote && !noneThisDay);
+    weeklyEl.innerHTML = noneThisDay ? '<div class="empty">No events scheduled for this day.</div>'
+      : weekly.length ? sampleNote + grouped : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
     document.getElementById("special-events").innerHTML = special.length ? special.map(card).join("") : '<div class="empty">No special events ' + (dayFilter === "All" ? "scheduled right now." : "on a " + esc(dayFilter) + " right now.") + '</div>';
     var week = new Date(today.getTime()); week.setUTCDate(week.getUTCDate() + 7);
     var upcoming = allWeekly.concat(allSpecial.filter(function (x) { return x.date < week; })).sort(byDate).slice(0, 5);
@@ -515,10 +519,9 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   function renderDayFilter(allWeekly) {
     var counts = {};
     allWeekly.forEach(function (x) { var d = DAYS[x.date.getUTCDay()]; counts[d] = (counts[d] || 0) + 1; });
-    var days = DAYS.filter(function (d) { return counts[d]; });
-    var btn = function (d, label, n) { return '<button type="button" data-day="' + d + '" aria-pressed="' + (dayFilter === d) + '">' + label + (n ? '<span class="n">' + n + '</span>' : '') + '</button>'; };
-    document.getElementById("day-filter").innerHTML = days.length > 1
-      ? btn("All", "All", allWeekly.length) + days.map(function (d) { return btn(d, d.slice(0, 3), counts[d]); }).join("") : "";
+    var btn = function (d, label, n) { return '<button type="button" data-day="' + d + '" aria-pressed="' + (dayFilter === d) + '"' + (n ? '' : ' class="zero"') + '>' + label + '<span class="n">' + n + '</span></button>'; };
+    document.getElementById("day-filter").innerHTML = allWeekly.length
+      ? btn("All", "All", allWeekly.length) + DAYS.map(function (d) { return btn(d, d.slice(0, 3), counts[d] || 0); }).join("") : "";
   }
   document.getElementById("day-filter").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-day]"); if (!b || !eventsData) return;
