@@ -324,7 +324,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
         <li><div><h3>Pick a style</h3><p>Look at the <a href="#meta">current meta</a> and choose what sounds fun. Aggro decks like Mono Red Rally or Elves are simple to pilot and usually among the cheapest to build.</p></div></li>
         <li><div><h3>Grab a list</h3><p>Copy a recent winning list from <a href="https://www.mtggoldfish.com/metagame/pauper" target="_blank" rel="noopener">MTGGoldfish</a> into <a href="https://moxfield.com" target="_blank" rel="noopener">Moxfield</a> or <a href="https://archidekt.com" target="_blank" rel="noopener">Archidekt</a> to see the price and swap cards you already own.</p></div></li>
         <li><div><h3>Buy the cards</h3><p>Check your local game store first, since they host the events. Online, <a href="https://www.tcgplayer.com" target="_blank" rel="noopener">TCGplayer</a> and <a href="https://www.cardkingdom.com" target="_blank" rel="noopener">Card Kingdom</a> sell most commons for cents.</p></div></li>
-        <li><div><h3>Come play</h3><p>Show up to any <a href="#events">event on our list</a>. Ask in our Discord to borrow a deck first. Regulars are happy to lend one.</p></div></li>
+        <li><div><h3>Come play</h3><p>Show up to any <a href="#events">event on our list</a>. Ask in the <a href="#faq" data-faq="discord">local Pauper Discord</a> to borrow a deck first. Regulars are happy to lend one.</p></div></li>
       </ol>
     </div>
     <div class="panel">
@@ -403,6 +403,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
         <h3>Follow along</h3>
         <p>Weekly event posts go out on every channel.</p>
         <div class="row" id="social-links"></div>
+        <p class="cards" id="community-discord"></p>
       </div>
       <div class="panel">
         <h3>For stores</h3>
@@ -533,16 +534,17 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     var items = [];
     if (weeklyCount) items.push([weeklyCount, "Weekly nights"]);
     if (storeCount) items.push([storeCount, "Stores"]);
-    if (siteData.discord_members) items.push([siteData.discord_members, "On Discord"]);
+    var cd = siteData.community_discord;
+    if (cd && cd.members) items.push([cd.members, "In the local Discord"]);
     if (siteData.deck_cost) items.push([siteData.deck_cost, "Most top decks"]);
     document.getElementById("hero-stats").innerHTML = items.map(function (i) { return '<div><dt>' + esc(i[1]) + '</dt><dd>' + esc(i[0]) + '</dd></div>'; }).join("");
   }
 
   function renderFaq(f) {
-    var discord = (siteData.links || []).filter(function (l) { return l.label === "Discord" && l.url; })[0];
+    var discord = siteData.community_discord && siteData.community_discord.url ? siteData.community_discord : null;
     document.getElementById("faq-list").innerHTML = f.items.map(function (it) {
       var paras = String(it.a).split(/\n\n/).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join("");
-      if (it.id === "discord") paras += discord ? '<p><a class="btn" href="' + esc(discord.url) + '" target="_blank" rel="noopener">Join the Discord</a></p>' : '<p>Ask a regular at any store night for an invite.</p>';
+      if (it.id === "discord") paras += discord ? '<p><a class="btn" href="' + esc(discord.url) + '" target="_blank" rel="noopener">Join ' + esc(discord.name || "the Discord") + '</a></p>' : '<p>Ask a regular at any store night for an invite.</p>';
       return '<details id="faq-' + esc(it.id) + '"><summary>' + esc(it.q) + '</summary><div class="ans">' + paras + '</div></details>';
     }).join("");
   }
@@ -586,7 +588,9 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     var links = (s.links || []).filter(function (l) { return l.url; });
     document.getElementById("social-links").innerHTML = links.length
       ? links.map(function (l) { return '<a class="btn ghost" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + '</a>'; }).join("")
-      : '<span class="cards">Discord, Instagram, Facebook, Bluesky and X links coming soon.</span>';
+      : '<span class="cards">Instagram, Facebook, Bluesky, X and our own Discord coming soon.</span>';
+    var cd = s.community_discord;
+    document.getElementById("community-discord").innerHTML = cd && cd.url ? 'Looking for other local players? Join <a href="' + esc(cd.url) + '" target="_blank" rel="noopener">' + esc(cd.name) + '</a>, the established local Pauper community Discord.' : '';
     document.getElementById("contact").innerHTML = s.contact_email ? 'Email <span class="mono">' + esc(s.contact_email) + '</span> or message us on any channel.' : 'Message us on any of our social channels.';
   }
 
@@ -597,6 +601,11 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   var sitePromise = getJSON("data/site.json").then(function (s) { siteData = s; renderSite(s); renderStats(); }).catch(function () {});
   sitePromise.then(function () { return getJSON("data/faq.json"); }).then(renderFaq).catch(function () { fail("faq-list", "the FAQ"); });
 
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-faq]"); if (!a) return;
+    e.preventDefault(); location.hash = "faq";
+    setTimeout(function () { var d = document.getElementById("faq-" + a.getAttribute("data-faq")); if (d) { d.open = true; d.scrollIntoView({ block: "center" }); } }, 50);
+  });
   function show() {
     var v = (location.hash || "").slice(1); if (VIEWS.indexOf(v) < 0) v = "home";
     VIEWS.forEach(function (n) { document.getElementById("view-" + n).hidden = n !== v; });

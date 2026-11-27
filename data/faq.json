@@ -1,14 +1,50 @@
 {
-  "_how_to_edit": "Each item is one question. Keep answers short and plain. Use \\n\\n between paragraphs. The question with id 'discord' automatically gets the Discord link from site.json.",
+  "_how_to_edit": "Each item is one question. Keep answers short and plain. Use \\n\\n between paragraphs. The question with id 'discord' automatically gets a Join button from community_discord in site.json.",
   "items": [
-    {"id": "where", "q": "When and where can I play?", "a": "There are weekly Pauper nights on both the Dallas side and the Fort Worth side. The Events page lists every store with its day, start time and entry fee. Tap a day at the top of the schedule to see just that night."},
-    {"id": "show-up", "q": "I've never played Pauper. Can I just show up?", "a": "Yes. At most stores you register at the counter when you arrive, so get there about 15 minutes early. Tell them it's your first Pauper night and someone will help you get set up.\n\nA few events need a ticket in advance or cap the number of players. Those notes are on each event's listing."},
-    {"id": "new-to-magic", "q": "I've never played Magic at all. Is Pauper a good place to start?", "a": "It's a great place to start because decks are cheap and the cards are simple to read. Learn the basic rules first with Magic: The Gathering Arena (free), then borrow a Pauper deck from a regular for your first night."},
-    {"id": "bring", "q": "What do I need to bring?", "a": "A Pauper-legal deck of at least 60 cards, up to 15 sideboard cards, card sleeves, dice or counters, and a way to track life (a pen and paper works). Bring the entry fee too. Most nights are $5 to $10."},
-    {"id": "cost", "q": "How much does a competitive deck cost?", "a": "Far less than other formats, because every card is a common. Most top decks cost under $100 in paper, and many budget builds are much cheaper. See our first-deck picks on the Get started page."},
-    {"id": "legal", "q": "Is my deck legal?", "a": "Every card must have been printed as a common in a paper set or on Magic Online, and none can be on the banned list. The easiest check: paste your list into Moxfield or Archidekt and set the format to Pauper. It flags anything that isn't legal."},
-    {"id": "proxies", "q": "Can I use proxies?", "a": "Each store sets its own proxy policy. Ask the store before you play, and check the notes on the event listing."},
-    {"id": "discord", "q": "Is there a DFW Pauper Discord?", "a": "Yes, DFW Pauper People. It's where players find pop-up events, trade cards, ask for deck help and set up loaners."},
-    {"id": "list-event", "q": "How do I get my store's Pauper night listed?", "a": "Send us the day, start time, entry fee, number of rounds and prizes. We'll add it to the site and include it in our weekly posts on every channel."}
+    {
+      "id": "where",
+      "q": "When and where can I play?",
+      "a": "There are weekly Pauper nights on both the Dallas side and the Fort Worth side. The Events page lists every store with its day, start time and entry fee. Tap a day at the top of the schedule to see just that night."
+    },
+    {
+      "id": "show-up",
+      "q": "I've never played Pauper. Can I just show up?",
+      "a": "Yes. At most stores you register at the counter when you arrive, so get there about 15 minutes early. Tell them it's your first Pauper night and someone will help you get set up.\n\nA few events need a ticket in advance or cap the number of players. Those notes are on each event's listing."
+    },
+    {
+      "id": "new-to-magic",
+      "q": "I've never played Magic at all. Is Pauper a good place to start?",
+      "a": "It's a great place to start because decks are cheap and the cards are simple to read. Learn the basic rules first with Magic: The Gathering Arena (free), then borrow a Pauper deck from a regular for your first night."
+    },
+    {
+      "id": "bring",
+      "q": "What do I need to bring?",
+      "a": "A Pauper-legal deck of at least 60 cards, up to 15 sideboard cards, card sleeves, dice or counters, and a way to track life (a pen and paper works). Bring the entry fee too. Most nights are $5 to $10."
+    },
+    {
+      "id": "cost",
+      "q": "How much does a competitive deck cost?",
+      "a": "Far less than other formats, because every card is a common. Most top decks cost under $100 in paper, and many budget builds are much cheaper. See our first-deck picks on the Get started page."
+    },
+    {
+      "id": "legal",
+      "q": "Is my deck legal?",
+      "a": "Every card must have been printed as a common in a paper set or on Magic Online, and none can be on the banned list. The easiest check: paste your list into Moxfield or Archidekt and set the format to Pauper. It flags anything that isn't legal."
+    },
+    {
+      "id": "proxies",
+      "q": "Can I use proxies?",
+      "a": "Each store sets its own proxy policy. Ask the store before you play, and check the notes on the event listing."
+    },
+    {
+      "id": "discord",
+      "q": "Is there a local Pauper Discord?",
+      "a": "Yes. DFW Pauper People is the established Discord for Pauper players around the Metroplex. It's where people find pop-up events, trade cards, ask for deck help and set up loaner decks. It's run by the local community, not by DFW Pauper."
+    },
+    {
+      "id": "list-event",
+      "q": "How do I get my store's Pauper night listed?",
+      "a": "Send us the day, start time, entry fee, number of rounds and prizes. We'll add it to the site and include it in our weekly posts on every channel."
+    }
   ]
 }
