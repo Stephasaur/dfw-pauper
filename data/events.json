@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-27",
   "timezone": "America/Chicago",
-  "_how_to_edit": "Add stores to 'stores', then add weekly events to 'weekly' and one-off events to 'special'. Times are 24-hour Central time (19:00 = 7 PM). Delete the sample entries (sample: true) once you have real ones. Sample entries are hidden from social posts. Each store has a 'region' (Dallas or Fort Worth) for the Dallas side / Fort Worth side split.",
+  "_how_to_edit": "Add stores to 'stores', then add weekly events to 'weekly' and one-off events to 'special'. Times are 24-hour Central time (19:00 = 7 PM). Delete the sample entries (sample: true) once you have real ones. Sample entries are hidden from social posts. Each store has a 'region' (Dallas or Fort Worth) for the Dallas side / Fort Worth side split. To cancel one week of a weekly event, add its date to 'skip_dates' (e.g. [\"2026-12-24\"]). For a moved date, skip it and add a 'special' entry on the new date. 'capacity' is the player cap.",
   "stores": [
     {
       "id": "tcg-nation-corinth",
@@ -110,6 +110,18 @@
       "facebook_url": "",
       "instagram_handle": "",
       "region": "Fort Worth"
+    },
+    {
+      "id": "mrt-cards-mansfield",
+      "name": "MRT Cards, Games & Comics",
+      "address": "",
+      "city": "Mansfield",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": "",
+      "region": "Fort Worth"
     }
   ],
   "weekly": [
@@ -124,7 +136,8 @@
       "active": true,
       "sample": false,
       "signup_url": "",
-      "format_notes": "Swiss rounds"
+      "format_notes": "Swiss rounds",
+      "capacity": 40
     },
     {
       "id": "tcg-nation-corinth-thursday",
@@ -150,7 +163,11 @@
       "active": true,
       "sample": false,
       "signup_url": "",
-      "format_notes": "Swiss rounds"
+      "format_notes": "Swiss rounds",
+      "capacity": 40,
+      "skip_dates": [
+        "2026-12-19"
+      ]
     },
     {
       "id": "zenith-tcg-plano-thursday",
@@ -163,7 +180,11 @@
       "active": true,
       "sample": false,
       "signup_url": "",
-      "format_notes": ""
+      "format_notes": "",
+      "capacity": 24,
+      "skip_dates": [
+        "2026-12-24"
+      ]
     },
     {
       "id": "common-lands-flower-mound-wednesday",
@@ -172,11 +193,12 @@
       "start_time": "18:00",
       "entry_fee": "$8",
       "prizes": "A pack per win (store credit once packs run out)",
-      "notes": "16 players max, so reserve your seat early.",
+      "notes": "Seats are limited, so reserve yours early.",
       "active": true,
       "sample": false,
       "signup_url": "",
-      "format_notes": "60-card Pauper, 3 rounds of Swiss"
+      "format_notes": "60-card Pauper, 3 rounds of Swiss",
+      "capacity": 36
     },
     {
       "id": "rays-pharmacy-arlington-sunday",
@@ -202,7 +224,8 @@
       "active": true,
       "sample": false,
       "signup_url": "",
-      "format_notes": ""
+      "format_notes": "",
+      "capacity": 12
     },
     {
       "id": "gaming-vault-fort-worth-wednesday",
@@ -215,7 +238,8 @@
       "active": true,
       "sample": false,
       "signup_url": "",
-      "format_notes": ""
+      "format_notes": "",
+      "capacity": 16
     },
     {
       "id": "titan-collector-gaming-nrh-thursday",
@@ -228,7 +252,10 @@
       "active": true,
       "sample": false,
       "signup_url": "",
-      "format_notes": ""
+      "format_notes": "",
+      "skip_dates": [
+        "2026-12-24"
+      ]
     },
     {
       "id": "resistance-comics-roanoke-thursday",
@@ -255,7 +282,35 @@
       "sample": false,
       "signup_url": "",
       "format_notes": ""
+    },
+    {
+      "id": "mrt-cards-mansfield-saturday",
+      "store": "mrt-cards-mansfield",
+      "day": "Saturday",
+      "start_time": "19:00",
+      "entry_fee": "$7",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
     }
   ],
-  "special": []
+  "special": [
+    {
+      "id": "tcg-nation-corinth-2026-12-20",
+      "store": "tcg-nation-corinth",
+      "date": "2026-12-20",
+      "start_time": "19:15",
+      "title": "Pauper (moved from Saturday)",
+      "entry_fee": "$6",
+      "prizes": "Pack per win",
+      "notes": "This week's Saturday event moves to Sunday.",
+      "sample": false,
+      "signup_url": "",
+      "format_notes": "",
+      "image": ""
+    }
+  ]
 }
