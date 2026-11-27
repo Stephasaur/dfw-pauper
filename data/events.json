@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-27",
   "timezone": "America/Chicago",
-  "_how_to_edit": "Add stores to 'stores', then add weekly events to 'weekly' and one-off events to 'special'. Times are 24-hour Central time (19:00 = 7 PM). Delete the sample entries (sample: true) once you have real ones. Sample entries are hidden from social posts.",
+  "_how_to_edit": "Add stores to 'stores', then add weekly events to 'weekly' and one-off events to 'special'. Times are 24-hour Central time (19:00 = 7 PM). Delete the sample entries (sample: true) once you have real ones. Sample entries are hidden from social posts. Each store has a 'region' (Dallas or Fort Worth) for the Dallas side / Fort Worth side split.",
   "stores": [
     {
       "id": "tcg-nation-corinth",
@@ -12,7 +12,8 @@
       "map_url": "",
       "discord_url": "",
       "facebook_url": "",
-      "instagram_handle": ""
+      "instagram_handle": "",
+      "region": "Dallas"
     },
     {
       "id": "zenith-tcg-plano",
@@ -23,7 +24,8 @@
       "map_url": "",
       "discord_url": "",
       "facebook_url": "",
-      "instagram_handle": ""
+      "instagram_handle": "",
+      "region": "Dallas"
     },
     {
       "id": "common-lands-flower-mound",
@@ -34,7 +36,80 @@
       "map_url": "",
       "discord_url": "",
       "facebook_url": "",
-      "instagram_handle": ""
+      "instagram_handle": "",
+      "region": "Dallas"
+    },
+    {
+      "id": "rays-pharmacy-arlington",
+      "name": "Ray's Pharmacy",
+      "address": "",
+      "city": "Arlington",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": "",
+      "region": "Dallas"
+    },
+    {
+      "id": "collectibles-cards-games-addison",
+      "name": "Collectibles Cards and Games",
+      "address": "",
+      "city": "Addison",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": "",
+      "region": "Dallas"
+    },
+    {
+      "id": "gaming-vault-fort-worth",
+      "name": "The Gaming Vault",
+      "address": "",
+      "city": "Fort Worth",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": "",
+      "region": "Fort Worth"
+    },
+    {
+      "id": "titan-collector-gaming-nrh",
+      "name": "Titan Collector Gaming",
+      "address": "",
+      "city": "North Richland Hills",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": "",
+      "region": "Fort Worth"
+    },
+    {
+      "id": "resistance-comics-roanoke",
+      "name": "Resistance Comics and Games",
+      "address": "",
+      "city": "Roanoke",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": "",
+      "region": "Fort Worth"
+    },
+    {
+      "id": "geekout-mansfield",
+      "name": "Geekout",
+      "address": "",
+      "city": "Mansfield",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": "",
+      "region": "Fort Worth"
     }
   ],
   "weekly": [
@@ -42,8 +117,8 @@
       "id": "tcg-nation-corinth-wednesday",
       "store": "tcg-nation-corinth",
       "day": "Wednesday",
-      "start_time": "19:00",
-      "entry_fee": "",
+      "start_time": "19:15",
+      "entry_fee": "$6",
       "prizes": "",
       "notes": "",
       "active": true,
@@ -59,7 +134,7 @@
       "entry_fee": "",
       "prizes": "",
       "notes": "",
-      "active": true,
+      "active": false,
       "sample": false,
       "signup_url": "",
       "format_notes": "Swiss rounds"
@@ -68,8 +143,8 @@
       "id": "tcg-nation-corinth-saturday",
       "store": "tcg-nation-corinth",
       "day": "Saturday",
-      "start_time": "19:00",
-      "entry_fee": "",
+      "start_time": "19:15",
+      "entry_fee": "$6",
       "prizes": "",
       "notes": "",
       "active": true,
@@ -102,6 +177,84 @@
       "sample": false,
       "signup_url": "",
       "format_notes": "60-card Pauper, 3 rounds of Swiss"
+    },
+    {
+      "id": "rays-pharmacy-arlington-sunday",
+      "store": "rays-pharmacy-arlington",
+      "day": "Sunday",
+      "start_time": "17:00",
+      "entry_fee": "$5",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
+    },
+    {
+      "id": "collectibles-cards-games-addison-wednesday",
+      "store": "collectibles-cards-games-addison",
+      "day": "Wednesday",
+      "start_time": "19:00",
+      "entry_fee": "$10",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
+    },
+    {
+      "id": "gaming-vault-fort-worth-wednesday",
+      "store": "gaming-vault-fort-worth",
+      "day": "Wednesday",
+      "start_time": "19:00",
+      "entry_fee": "$5",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
+    },
+    {
+      "id": "titan-collector-gaming-nrh-thursday",
+      "store": "titan-collector-gaming-nrh",
+      "day": "Thursday",
+      "start_time": "19:00",
+      "entry_fee": "$10",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
+    },
+    {
+      "id": "resistance-comics-roanoke-thursday",
+      "store": "resistance-comics-roanoke",
+      "day": "Thursday",
+      "start_time": "19:00",
+      "entry_fee": "$10",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
+    },
+    {
+      "id": "geekout-mansfield-saturday",
+      "store": "geekout-mansfield",
+      "day": "Saturday",
+      "start_time": "19:00",
+      "entry_fee": "$5",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
     }
   ],
   "special": []

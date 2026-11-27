@@ -156,7 +156,8 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900"
 
 def render_html(week: Week, logo_path: Path | None = None) -> str:
     rows = []
-    for e in week.events[:7]:
+    limit = 12
+    for e in week.events[:limit]:
         cls = "row special" if e.special else "row"
         tag = '<i>Special event</i>' if e.special else ""
         title = html.escape(e.title if e.special else e.store.get("name", ""))
@@ -166,8 +167,8 @@ def render_html(week: Week, logo_path: Path | None = None) -> str:
             f'<div class="{cls}"><div class="day">{e.when:%a}<span>{e.when:%b} {e.when.day}</span></div>'
             f'<div class="what">{tag}<b>{title}</b><small>{sub}</small></div>'
             f'<div class="time">{_fmt_time(e.when.time())}<small>{fee}</small></div></div>')
-    if len(week.events) > 7:
-        rows.append(f'<div class="more">+{len(week.events) - 7} more on the website</div>')
+    if len(week.events) > limit:
+        rows.append(f'<div class="more">+{len(week.events) - limit} more on the website</div>')
     if not rows:
         rows.append('<div class="row"><div class="what"><b>No events listed this week</b></div></div>')
     logo = _logo_data_uri(logo_path)
@@ -195,13 +196,17 @@ small{{font-size:22px;font-weight:400;color:#b9bdc7}}
 .time{{text-align:right;font-family:Montserrat,sans-serif;font-size:36px;font-weight:900;display:flex;flex-direction:column}}
 .time small{{font-family:Inter,sans-serif}}
 .more{{font-size:24px;color:#b9bdc7;padding-left:8px}}
+.compact{{gap:8px}} .compact .row{{padding:7px 24px;gap:20px}}
+.compact .day{{flex-direction:row;align-items:baseline;gap:10px;width:170px;font-size:28px}} .compact .day span{{font-size:17px}}
+.compact .what{{flex-direction:row;align-items:baseline;gap:12px;font-size:24px}} .compact .what i{{font-size:14px}}
+.compact small{{font-size:18px}} .compact .time{{flex-direction:row;align-items:baseline;gap:12px;font-size:26px}}
 footer{{font-size:24px;color:#b9bdc7;display:flex;justify-content:space-between;padding-top:24px}}
 footer b{{color:{EMERALD};font-weight:600}}
 </style></head><body>
 <header><div><h1 class="display">Pauper<br>this week</h1>
 <h2 class="display">{_fmt_range(week.start, week.end)} · Dallas-Fort Worth</h2></div>{logo_html}</header>
 <div class="bar"></div>
-<div class="list">{''.join(rows)}</div>
+<div class="list{' compact' if len(rows) > 7 else ''}">{''.join(rows)}</div>
 <footer><span><b>Commons only.</b> All skill levels welcome.</span><span>{html.escape(week.site_url)}</span></footer>
 </body></html>"""
 
