@@ -74,6 +74,8 @@ def load_week(events_path: Path, site_path: Path | None, today: date | None = No
         if not keep(e) or not e.get("active", True) or e.get("day") not in DAYS:
             continue
         d = start + timedelta(days=DAYS.index(e["day"]))
+        if d.isoformat() in e.get("skip_dates", []):  # cancelled or moved this week
+            continue
         t = time.fromisoformat(e.get("start_time", "19:00"))
         week.events.append(Event(
             when=datetime.combine(d, t, tz), store=stores.get(e.get("store"), {}),
