@@ -4,10 +4,10 @@
   "_how_to_edit": "Add stores to 'stores', then add weekly events to 'weekly' and one-off events to 'special'. Times are 24-hour Central time (19:00 = 7 PM). Delete the sample entries (sample: true) once you have real ones. Sample entries are hidden from social posts.",
   "stores": [
     {
-      "id": "example-store",
-      "name": "Example Game Store",
-      "address": "123 Main St",
-      "city": "Dallas",
+      "id": "tcg-nation-corinth",
+      "name": "TCG Nation",
+      "address": "",
+      "city": "Corinth",
       "website": "",
       "map_url": "",
       "discord_url": "",
@@ -17,33 +17,44 @@
   ],
   "weekly": [
     {
-      "id": "example-weekly",
-      "store": "example-store",
+      "id": "tcg-nation-corinth-wednesday",
+      "store": "tcg-nation-corinth",
+      "day": "Wednesday",
+      "start_time": "19:00",
+      "entry_fee": "",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": "Swiss rounds"
+    },
+    {
+      "id": "tcg-nation-corinth-thursday",
+      "store": "tcg-nation-corinth",
       "day": "Thursday",
       "start_time": "19:00",
-      "entry_fee": "$5",
-      "prizes": "Store credit for the top 4",
-      "notes": "Ask the store about their proxy policy.",
+      "entry_fee": "",
+      "prizes": "",
+      "notes": "",
       "active": true,
-      "sample": true,
+      "sample": false,
       "signup_url": "",
-      "format_notes": "Paper, 60-card deck, 15-card sideboard"
+      "format_notes": "Swiss rounds"
+    },
+    {
+      "id": "tcg-nation-corinth-saturday",
+      "store": "tcg-nation-corinth",
+      "day": "Saturday",
+      "start_time": "19:00",
+      "entry_fee": "",
+      "prizes": "",
+      "notes": "",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": "Swiss rounds"
     }
   ],
-  "special": [
-    {
-      "id": "example-special",
-      "store": "example-store",
-      "date": "2026-12-20",
-      "start_time": "12:00",
-      "title": "DFW Pauper Holiday Open",
-      "entry_fee": "$15",
-      "prizes": "Prize pool split across the top 8",
-      "notes": "Ask the store about their proxy policy.",
-      "sample": true,
-      "signup_url": "",
-      "format_notes": "Paper, 60-card deck, 15-card sideboard",
-      "image": ""
-    }
-  ]
+  "special": []
 }
