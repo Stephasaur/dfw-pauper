@@ -8,8 +8,7 @@
     "members": 219,
     "note": "The established local Pauper server (not run by DFW Pauper). When our own server is ready, swap name/url/members here."
   },
-  "deck_cost": "Under $100",
-  "_how_to_edit": "Set url to the public website address. community_discord is the Discord we send new players to: change its name, url and members to switch servers. deck_cost shows in the home page stats (leave empty to hide). 'links' are DFW Pauper's own social profiles: paste each URL between the quotes, leave empty to hide.",
+  "_how_to_edit": "Set url to the public website address. community_discord is the Discord we send new players to: change its name, url and members to switch servers. 'links' are DFW Pauper's own social profiles: paste each URL between the quotes, leave empty to hide.",
   "links": [
     {
       "label": "Discord",
