@@ -73,6 +73,16 @@ section.view { display: grid; gap: 28px; }
 .stack { display: grid; gap: 14px; }
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; }
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+/* Color accents on white cards: a stripe on top and matching square bullets, rotating Ocean, Tangerine, Emerald, Ink. */
+.panel:not(.feature) { --accent: var(--ocean); border-top: 5px solid var(--accent); }
+.panel:not(.feature):nth-child(4n+2) { --accent: var(--hot); }
+.panel:not(.feature):nth-child(4n+3) { --accent: var(--emerald); }
+.panel:not(.feature):nth-child(4n+4) { --accent: var(--ink); }
+.grid2.continue > .panel:nth-child(1) { --accent: var(--emerald); }
+.grid2.continue > .panel:nth-child(2) { --accent: var(--ink); }
+.panel ul.plain { list-style: none; padding-left: 0; }
+.panel ul.plain > li { position: relative; padding-left: 22px; }
+.panel ul.plain > li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 9px; height: 9px; border-radius: 2px; background: var(--accent); }
 .panel.feature { background: var(--ocean); border-color: var(--ocean); color: var(--white); }
 .panel.feature .eyebrow { color: rgba(252,252,252,.75); }
 .panel.feature a { color: var(--white); }
@@ -508,7 +518,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
         </ul>
       </div>
     </div>
-    <div class="grid2">
+    <div class="grid2 continue">
       <div class="panel">
         <h3>How a Pauper event works</h3>
         <ul class="plain">
