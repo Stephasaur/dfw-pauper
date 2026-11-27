@@ -9,12 +9,12 @@
     {
       "id": "show-up",
       "q": "I've never played Pauper. Can I just show up?",
-      "a": "Yes. At most stores you register at the counter when you arrive, so get there about 15 minutes early. Tell them it's your first Pauper night and someone will help you get set up.\n\nA few events need a ticket in advance or cap the number of players. Those notes are on each event's listing."
+      "a": "Yes. At most stores you register at the counter when you arrive, so get there about 15 minutes early. Tell them it's your first Pauper event and someone will help you get set up.\n\nA few events need a ticket in advance or cap the number of players. Those notes are on each event's listing."
     },
     {
       "id": "new-to-magic",
       "q": "I've never played Magic at all. Is Pauper a good place to start?",
-      "a": "It's a great place to start because decks cost less than in most formats and the cards are simple to read. Learn the basic rules first with Magic: The Gathering Arena (free), then borrow a Pauper deck from a regular for your first night."
+      "a": "It's a great place to start because decks cost less than in most formats and the cards are simple to read. Learn the basic rules first with Magic: The Gathering Arena (free), then borrow a Pauper deck from a regular for your first event."
     },
     {
       "id": "bring",
@@ -24,7 +24,7 @@
     {
       "id": "cost",
       "q": "How much does a competitive deck cost?",
-      "a": "Less than most other formats, since every card is a common, but it varies a lot by deck. Listed deck prices online are often lower than what you'll actually pay to buy every card, so price your exact list at your local game store, on Yes TCG or at an online store before you buy.\n\nThe easiest way to start is to borrow a deck from a regular for your first night, then build the one you enjoy."
+      "a": "Less than most other formats, since every card is a common, but it varies a lot by deck. Listed deck prices online are often lower than what you'll actually pay to buy every card, so price your exact list at your local game store, on Yes TCG or at an online store before you buy.\n\nThe easiest way to start is to borrow a deck from a regular for your first event, then build the one you enjoy."
     },
     {
       "id": "legal",
@@ -43,7 +43,7 @@
     },
     {
       "id": "list-event",
-      "q": "How do I get my store's Pauper night listed?",
+      "q": "How do I get my store's Pauper event listed?",
       "a": "Send us the day, start time, entry fee, number of rounds and prizes. We'll add it to the site and include it in our weekly posts on every channel."
     }
   ]
