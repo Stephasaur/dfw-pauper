@@ -178,11 +178,24 @@ ol.timeline h3 { margin-bottom: 4px; }
 .event .meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--muted); font-size: .92rem; }
 .tag { display: inline-block; font: 700 .68rem/1 var(--body); text-transform: uppercase; letter-spacing: .08em; padding: 5px 7px; border-radius: 4px; background: var(--emerald-soft); color: var(--emerald-ink); }
 .tag.sample { background: var(--hot-soft); color: #8a3d0c; }
-.events.weekly { gap: 32px; }
-.events.weekly.cols { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; align-items: start; }
-.events.weekly.cols > .stack { min-width: 0; }
-.events.weekly.cols .event { grid-template-columns: 64px 1fr; gap: 14px; padding: 14px; }
-.events.weekly.cols .datechip .day { font-size: 1.7rem; }
+/* Compact weekly summary: one dark card sized to screenshot on a phone. */
+.weekcard { background: #171A21; color: #FCFCFC; border-radius: 14px; padding: 16px 16px 12px; max-width: 520px; width: 100%; display: grid; gap: 10px; box-shadow: 0 10px 28px rgba(23,26,33,.18); }
+.weekcard .wc-head { display: flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 3px solid #FF934F; }
+.weekcard .wc-head img { width: 44px; height: 44px; border-radius: 50%; background: #FCFCFC; }
+.weekcard .wc-head h2 { font-size: 1.25rem; color: #FCFCFC; }
+.weekcard .wc-head p { margin: 2px 0 0; font: 600 .72rem/1.2 var(--body); letter-spacing: .1em; text-transform: uppercase; color: #69B578; }
+.weekcard .wc-day { display: grid; gap: 4px; }
+.weekcard .wc-day + .wc-day { padding-top: 8px; border-top: 1px solid rgba(252,252,252,.12); }
+.weekcard .wc-dow { font: 900 .8rem/1.3 var(--display); text-transform: uppercase; color: #FF934F; letter-spacing: .04em; }
+.weekcard ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.weekcard ul { gap: 3px; }
+.weekcard li { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; font-size: .86rem; line-height: 1.35; }
+.weekcard .wc-time { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.weekcard .wc-where { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.weekcard .wc-where span { color: rgba(252,252,252,.6); }
+.weekcard .wc-side { font: 700 .62rem/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 4px; background: rgba(11,122,117,.55); color: #FCFCFC; white-space: nowrap; }
+.weekcard .wc-side.fw { background: rgba(105,181,120,.35); }
+.weekcard .wc-foot { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: .72rem; color: rgba(252,252,252,.55); padding-top: 8px; border-top: 1px solid rgba(252,252,252,.12); }
 h3.dategroup { font-size: 1rem; padding-bottom: 6px; border-bottom: 2px solid var(--line); margin-top: 8px; }
 .callout.warn { border-color: var(--hot); background: var(--hot-soft); color: #171A21; }
 .callout.warn ul { margin: 6px 0 0; padding-left: 20px; }
@@ -305,6 +318,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <p class="lede">Weekly store events and special tournaments across Dallas-Fort Worth. Always check the store's page before you drive out.</p>
     </div>
     <div id="events-problems"></div>
+    <div class="weekcard" id="weekly-summary" aria-labelledby="weekcard-title"></div>
     <div class="dayfilter" id="day-filter" role="group" aria-label="Filter by day"></div>
     <div class="stack">
       <h2>Next two weeks</h2>
@@ -314,10 +328,6 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     <div class="stack" id="later-wrap" hidden>
       <h2>Later special events</h2>
       <div class="events" id="later-events"></div>
-    </div>
-    <div class="stack">
-      <h2>Every week</h2>
-      <div class="events weekly" id="weekly-events"></div>
     </div>
   </section>
 
@@ -789,23 +799,22 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     document.getElementById("later-wrap").hidden = !later.length;
     document.getElementById("later-events").innerHTML = later.map(card).join("");
 
-    // Weekly directory grouped by store region ("Dallas" / "Fort Worth"), matching the flyer's split.
-    var weekly = allWeekly.filter(dayOk).sort(byDate);
-    var regions = [];
-    allWeekly.forEach(function (x) { var s = stores[x.ev.store], r = (s && s.region) || "Other"; if (regions.indexOf(r) < 0) regions.push(r); });
-    var order = ["Dallas", "Fort Worth"];
-    regions.sort(function (a, b) { var ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
-    var grouped = regions.map(function (r) {
-      var items = weekly.filter(function (x) { var s = stores[x.ev.store]; return ((s && s.region) || "Other") === r; });
-      var label = r === "Other" ? "More of DFW" : r + " side";
-      var body = items.length ? items.map(card).join("") : '<div class="empty">No ' + esc(dayFilter) + ' events on this side.</div>';
-      return '<div class="stack"><h3 class="region">' + esc(label) + ' <span class="count">' + items.length + (items.length === 1 ? ' event' : ' events') + '</span></h3>' + body + '</div>';
-    }).join("");
-    var weeklyEl = document.getElementById("weekly-events");
-    var noneThisDay = dayFilter !== "All" && !weekly.length && allWeekly.length;
-    weeklyEl.classList.toggle("cols", regions.length > 1 && !sampleNote && !noneThisDay);
-    weeklyEl.innerHTML = noneThisDay ? '<div class="empty">No weekly events on this day.</div>'
-      : weekly.length ? grouped : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
+    // Compact weekly summary at the top: day, time, store, city and side only.
+    var sumEl = document.getElementById("weekly-summary");
+    var byDay = {};
+    allWeekly.forEach(function (x) { (byDay[x.ev.day] = byDay[x.ev.day] || []).push(x); });
+    var days = DAYS.filter(function (d) { return byDay[d]; });
+    sumEl.hidden = !days.length;
+    sumEl.innerHTML = days.length ? '<div class="wc-head"><img src="assets/logo-128.png" alt=""><div><h2 id="weekcard-title">Weekly Pauper in DFW</h2><p>Central time</p></div></div>' +
+      days.map(function (d) {
+        var rows = byDay[d].sort(function (a, b) { return (a.ev.start_time || "").localeCompare(b.ev.start_time || ""); }).map(function (x) {
+          var st = stores[x.ev.store] || {}, fw = st.region === "Fort Worth";
+          var side = st.region ? '<span class="wc-side' + (fw ? ' fw' : '') + '">' + (fw ? "FW" : st.region === "Dallas" ? "DAL" : esc(st.region)) + '</span>' : '<span></span>';
+          return '<li><span class="wc-time">' + fmtTime(x.ev.start_time) + '</span><span class="wc-where">' + esc(st.name || x.ev.store) + (st.city ? ' <span>· ' + esc(st.city) + '</span>' : '') + '</span>' + side + '</li>';
+        }).join("");
+        return '<div class="wc-day"><div class="wc-dow">' + d + '</div><ul>' + rows + '</ul></div>';
+      }).join("") +
+      '<div class="wc-foot"><span>Check the store before you go.</span><span>' + esc((siteData.url || "").replace(/^https?:\/\//, "").replace(/\/$/, "") || "DFW Pauper") + '</span></div>' : "";
 
     // Home page: every event in the next 7 days.
     var home = schedule(HOME_DAYS);
@@ -897,10 +906,10 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   }
 
   function fail(id, what) { var el = document.getElementById(id); if (el) el.innerHTML = '<div class="empty">Couldn\'t load ' + what + '. Refresh to try again.</div>'; }
-  getJSON("data/events.json").then(renderEvents).catch(function () { fail("home-events", "events"); fail("schedule-events", "events"); fail("weekly-events", "events"); });
+  getJSON("data/events.json").then(renderEvents).catch(function () { fail("home-events", "events"); fail("schedule-events", "events"); });
   getJSON("data/meta.json").then(renderMeta).catch(function () { document.getElementById("home-meta").textContent = "Couldn't load the meta."; });
   getJSON("data/banned.json").then(renderBanned).catch(function () { fail("banned-list", "the banned list"); });
-  var sitePromise = getJSON("data/site.json").then(function (s) { siteData = s; renderSite(s); renderStats(); }).catch(function () {});
+  var sitePromise = getJSON("data/site.json").then(function (s) { siteData = s; renderSite(s); renderStats(); if (eventsData) renderEvents(eventsData); }).catch(function () {});
   sitePromise.then(function () { return getJSON("data/faq.json"); }).then(renderFaq).catch(function () { fail("faq-list", "the FAQ"); });
 
   document.addEventListener("click", function (e) {
