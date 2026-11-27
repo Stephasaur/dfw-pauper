@@ -205,7 +205,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     <div>
       <div class="eyebrow">Dallas · Fort Worth · Commons only</div>
       <h1>Play Pauper in <em>DFW</em></h1>
-      <p>Pauper is Magic: The Gathering built entirely from common cards. It is fast, skill-heavy and cheap to get into. We track every Pauper event across the Metroplex so you always know where to play this week.</p>
+      <p>Pauper is Magic: The Gathering built entirely from common cards. It is fast, skill-heavy and more affordable than most formats. We track every Pauper event across the Metroplex so you always know where to play this week.</p>
       <div class="row">
         <a class="btn" href="#events">This week's events</a>
         <a class="btn ghost" href="#start">New to Pauper?</a>
@@ -314,7 +314,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <h2>Good first decks</h2>
       <p class="lede">Any deck on the <a href="#meta">meta list</a> can win a local night. These are the easiest places to start.</p>
       <div class="picks">
-        <div class="panel"><div class="eyebrow">Cheap and fast</div><h3>Mono Red Rally or Madness</h3><p>Straightforward aggro: play creatures, attack, finish with burn. Among the cheapest top decks and easy to learn.</p></div>
+        <div class="panel"><div class="eyebrow">Fast and simple</div><h3>Mono Red Rally or Madness</h3><p>Straightforward aggro: play creatures, attack, finish with burn. Easy to learn and quick to play.</p></div>
         <div class="panel"><div class="eyebrow">Simple creatures</div><h3>Elves</h3><p>Flood the board with small elves, make lots of mana and overwhelm your opponent. Easy to pilot, with plenty of room to improve.</p></div>
         <div class="panel"><div class="eyebrow">Grow into it</div><h3>Dimir Faeries or Mono Blue Terror</h3><p>Tempo decks built on counterspells and flying threats. They take more practice, and they teach you the format faster than anything else.</p></div>
       </div>
@@ -322,9 +322,9 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     <div class="stack">
       <h2>Your first deck in four steps</h2>
       <ol class="steps">
-        <li><div><h3>Pick a style</h3><p>Look at the <a href="#meta">current meta</a> and choose what sounds fun. Aggro decks like Mono Red Rally or Elves are simple to pilot and usually among the cheapest to build.</p></div></li>
+        <li><div><h3>Pick a style</h3><p>Look at the <a href="#meta">current meta</a> and choose what sounds fun. Aggro decks like Mono Red Rally or Elves are simple to pilot. Price out a list before you buy (see the next two steps).</p></div></li>
         <li><div><h3>Grab a list</h3><p>Copy a recent winning list from <a href="https://www.mtggoldfish.com/metagame/pauper" target="_blank" rel="noopener">MTGGoldfish</a> into <a href="https://moxfield.com" target="_blank" rel="noopener">Moxfield</a> or <a href="https://archidekt.com" target="_blank" rel="noopener">Archidekt</a> to see the price and swap cards you already own.</p></div></li>
-        <li><div><h3>Buy the cards</h3><p>Support your local game store (LGS) first. They're the ones hosting Pauper nights, and buying singles there keeps those events going. <a href="https://yestcg.com/" target="_blank" rel="noopener">Yes TCG</a> is a fantastic resource for finding the cards you need in stock at local stores. If you still need something, <a href="https://www.tcgplayer.com" target="_blank" rel="noopener">TCGplayer</a> and <a href="https://www.cardkingdom.com" target="_blank" rel="noopener">Card Kingdom</a> sell most commons for cents.</p></div></li>
+        <li><div><h3>Buy the cards</h3><p>Support your local game store (LGS) first. They're the ones hosting Pauper nights, and buying singles there keeps those events going. <a href="https://yestcg.com/" target="_blank" rel="noopener">Yes TCG</a> is a fantastic resource for finding the cards you need in stock at local stores. If you still need something, <a href="https://www.tcgplayer.com" target="_blank" rel="noopener">TCGplayer</a> and <a href="https://www.cardkingdom.com" target="_blank" rel="noopener">Card Kingdom</a> carry most Pauper staples.</p></div></li>
         <li><div><h3>Come play</h3><p>Show up to any <a href="#events">event on our list</a>. Ask in the <a href="#faq" data-faq="discord">local Pauper Discord</a> to borrow a deck first. Regulars are happy to lend one.</p></div></li>
       </ol>
     </div>
@@ -549,7 +549,6 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     if (storeCount) items.push([storeCount, "Stores"]);
     var cd = siteData.community_discord;
     if (cd && cd.members) items.push([cd.members, "In the local Discord"]);
-    if (siteData.deck_cost) items.push([siteData.deck_cost, "Most top decks"]);
     document.getElementById("hero-stats").innerHTML = items.map(function (i) { return '<div><dt>' + esc(i[1]) + '</dt><dd>' + esc(i[0]) + '</dd></div>'; }).join("");
   }
 
