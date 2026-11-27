@@ -3,7 +3,69 @@
   "last_change": "June 29, 2026: Seeker of Skybreak banned",
   "next_announcement": "2026-11-30",
   "source_url": "https://magic.wizards.com/en/banned-restricted-list",
-  "_how_to_edit": "After each Banned & Restricted announcement, add or remove card names below, then update as_of, last_change and next_announcement.",
-  "cards": ["Aarakocra Sneak","All That Glitters","Arcum's Astrolabe","Atog","Basking Broodscale","Chatterstorm","Cloud of Faeries","Cloudpost","Cranial Plating","Cranial Ram","Daze","Deadly Dispute","Disciple of the Vault","Empty the Warrens","Fall from Favor","Frantic Search","Galvanic Relay","Gitaxian Probe","Grapeshot","Gush","High Tide","Hymn to Tourach","Invigorate","Kuldotha Rebirth","Monastery Swiftspear","Mystic Sanctuary","Narcomoeba","Peregrine Drake","Price of Progress","Seeker of Skybreak","Sinkhole","Sojourner's Companion","Stirring Bard","Temporal Fissure","Treasure Cruise","Underdark Explorer","Vicious Battlerager"],
-  "also_banned": "Every card that brings stickers or Attractions into the game."
+  "_how_to_edit": "After each Banned & Restricted announcement: add or remove card names in 'cards', add a line at the top of 'recent_changes', update or clear 'watch_list', and update as_of, last_change and next_announcement.",
+  "cards": [
+    "Aarakocra Sneak",
+    "All That Glitters",
+    "Arcum's Astrolabe",
+    "Atog",
+    "Basking Broodscale",
+    "Chatterstorm",
+    "Cloud of Faeries",
+    "Cloudpost",
+    "Cranial Plating",
+    "Cranial Ram",
+    "Daze",
+    "Deadly Dispute",
+    "Disciple of the Vault",
+    "Empty the Warrens",
+    "Fall from Favor",
+    "Frantic Search",
+    "Galvanic Relay",
+    "Gitaxian Probe",
+    "Grapeshot",
+    "Gush",
+    "High Tide",
+    "Hymn to Tourach",
+    "Invigorate",
+    "Kuldotha Rebirth",
+    "Monastery Swiftspear",
+    "Mystic Sanctuary",
+    "Narcomoeba",
+    "Peregrine Drake",
+    "Price of Progress",
+    "Seeker of Skybreak",
+    "Sinkhole",
+    "Sojourner's Companion",
+    "Stirring Bard",
+    "Temporal Fissure",
+    "Treasure Cruise",
+    "Underdark Explorer",
+    "Vicious Battlerager"
+  ],
+  "also_banned": "Every card that brings stickers or Attractions into the game.",
+  "recent_changes": [
+    {
+      "date": "2026-10-12",
+      "change": "No changes. Wizards said nothing is immediately a problem in the format."
+    },
+    {
+      "date": "2026-08-10",
+      "change": "No new bans. Bonder's Ornament's trial unban was made permanent."
+    },
+    {
+      "date": "2026-06-29",
+      "change": "Seeker of Skybreak banned, for a fast combo with Hawkeye's Bow."
+    },
+    {
+      "date": "2026-05-18",
+      "change": "Bonder's Ornament unbanned on a trial basis."
+    }
+  ],
+  "watch_list": [
+    "Baleful Strix",
+    "Dispatch",
+    "Vandalblast"
+  ],
+  "watch_note": "Wizards said it would check these new additions to Pauper in October and again in the next update (November 30). In October it took no action."
 }

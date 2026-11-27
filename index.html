@@ -81,6 +81,40 @@ section.view { display: grid; gap: 28px; }
 .heroband .btn.ghost { color: var(--white); box-shadow: inset 0 0 0 2px rgba(252,252,252,.35); }
 .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 
+/* Hero stats */
+.stats { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 26px 0 0; padding: 18px 0 0; border-top: 1px solid rgba(252,252,252,.14); }
+.stats div { display: grid; gap: 4px; }
+.stats dt { order: 2; font: 600 .72rem/1 var(--body); text-transform: uppercase; letter-spacing: .12em; color: rgba(252,252,252,.65); }
+.stats dd { order: 1; margin: 0; font: 900 1.7rem/1 var(--display); color: var(--white); }
+.stats div:first-child dd { color: var(--hot); }
+
+/* Day filter */
+.dayfilter { display: flex; flex-wrap: wrap; gap: 8px; }
+.dayfilter button { font: 700 .8rem/1 var(--body); text-transform: uppercase; letter-spacing: .06em; padding: 10px 14px; border-radius: 999px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.dayfilter button:hover { border-color: var(--ink); }
+.dayfilter button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.dayfilter button .n { color: var(--muted); margin-left: 4px; font-weight: 600; }
+.dayfilter button[aria-pressed="true"] .n { color: var(--hot); }
+
+/* First-deck picks */
+.picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; }
+.faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.faq details[open] { border-color: var(--ink); }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 18px; font: 800 1rem/1.3 var(--display); text-transform: uppercase; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--hot); color: var(--ink); font: 900 1.1rem/1 var(--display); }
+.faq details[open] summary::after { content: "–"; }
+.faq summary:focus-visible { outline: 2px solid var(--hot); outline-offset: 2px; border-radius: 10px; }
+.faq .ans { padding: 0 18px 18px; display: grid; gap: 10px; }
+
+/* Ban list extras */
+ul.changes { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+ul.changes li { display: grid; grid-template-columns: 110px 1fr; gap: 12px; }
+ul.changes .d { font: 700 .78rem/1.6 var(--body); text-transform: uppercase; letter-spacing: .06em; color: var(--ocean); }
+
 /* Event cards */
 .events { display: grid; gap: 14px; }
 .event { display: grid; grid-template-columns: 82px 1fr; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
@@ -159,6 +193,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <a href="#start">Get started</a>
       <a href="#meta">Meta</a>
       <a href="#banned">Banned</a>
+      <a href="#faq">FAQ</a>
       <a href="#about">About</a>
     </nav>
   </div>
@@ -174,6 +209,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
         <a class="btn" href="#events">This week's events</a>
         <a class="btn ghost" href="#start">New to Pauper?</a>
       </div>
+      <dl class="stats" id="hero-stats"></dl>
     </div>
     <img class="logo" src="assets/logo.png" alt="DFW Pauper logo: Dallas-Fort Worth skyline, Est. 2026, For the love of the game" width="240" height="240">
   </div>
@@ -219,6 +255,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     </div>
     <div class="stack">
       <h2>Every week</h2>
+      <div class="dayfilter" id="day-filter" role="group" aria-label="Filter by day"></div>
       <div class="events weekly" id="weekly-events"></div>
     </div>
   </section>
@@ -248,6 +285,37 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
           <li>Classic cards like Counterspell, Lightning Bolt and Snuff Out are legal.</li>
           <li>It's played on Magic Online every day, so the meta is well documented.</li>
         </ul>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>How a Pauper night works</h3>
+        <ul class="plain">
+          <li>Arrive about 15 minutes early and register at the counter. Most nights don't need a pre-signup, but check the event's notes.</li>
+          <li>Pay the entry fee, usually $5 to $10.</li>
+          <li>You play 3 or 4 rounds of Swiss, so you face a new opponent each round with a similar record.</li>
+          <li>Each match is best of three games. You can swap sideboard cards in between games.</li>
+          <li>Most stores give a pack or store credit for each match you win, so newer players still walk away with prizes.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>What to bring</h3>
+        <ul class="plain">
+          <li>A Pauper-legal deck of at least 60 cards.</li>
+          <li>Up to 15 sideboard cards (optional for your first night).</li>
+          <li>Card sleeves.</li>
+          <li>Dice or counters, and a pen and paper or app for life totals.</li>
+          <li>The entry fee.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stack">
+      <h2>Good first decks</h2>
+      <p class="lede">Any deck on the <a href="#meta">meta list</a> can win a local night. These are the easiest places to start.</p>
+      <div class="picks">
+        <div class="panel"><div class="eyebrow">Cheap and fast</div><h3>Mono Red Rally or Madness</h3><p>Straightforward aggro: play creatures, attack, finish with burn. Among the cheapest top decks and easy to learn.</p></div>
+        <div class="panel"><div class="eyebrow">Simple creatures</div><h3>Elves</h3><p>Flood the board with small elves, make lots of mana and overwhelm your opponent. Easy to pilot, with plenty of room to improve.</p></div>
+        <div class="panel"><div class="eyebrow">Grow into it</div><h3>Dimir Faeries or Mono Blue Terror</h3><p>Tempo decks built on counterspells and flying threats. They take more practice, and they teach you the format faster than anything else.</p></div>
       </div>
     </div>
     <div class="stack">
@@ -282,6 +350,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
         <tbody id="meta-rows"></tbody>
       </table>
     </div>
+    <p>New to the format? See our <a href="#start">good first decks</a>.</p>
     <div class="panel">
       <h3>Live sources</h3>
       <ul class="plain" id="meta-sources"></ul>
@@ -299,6 +368,27 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <ul class="banned" id="banned-list"></ul>
       <p class="cards" id="banned-also"></p>
     </div>
+    <div class="grid2">
+      <div class="panel" id="banned-changes-panel" hidden>
+        <h3>Recent changes</h3>
+        <ul class="changes" id="banned-changes"></ul>
+      </div>
+      <div class="panel" id="banned-watch-panel" hidden>
+        <h3>Being watched</h3>
+        <p id="banned-watch-note" class="cards"></p>
+        <ul class="plain" id="banned-watch"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="view" id="view-faq" hidden>
+    <div class="stack">
+      <div class="eyebrow">Questions</div>
+      <h2>FAQ</h2>
+      <p class="lede">The questions new players ask most. Tap a question to open it.</p>
+    </div>
+    <div class="faq" id="faq-list"></div>
   </section>
 
   <!-- ABOUT -->
@@ -336,7 +426,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   var TZ = "America/Chicago";
   var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  var VIEWS = ["home","events","start","meta","banned","about"];
+  var VIEWS = ["home","events","start","meta","banned","faq","about"];
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
   function getJSON(path) { return fetch(path, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(path); return r.json(); }); }
@@ -382,13 +472,19 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       '</div></article>';
   }
 
+  var eventsData = null, dayFilter = "All";
   function renderEvents(data) {
+    eventsData = data;
     var stores = {}; (data.stores || []).forEach(function (s) { stores[s.id] = s; });
     var today = todayCentral();
-    var weekly = (data.weekly || []).filter(function (e) { return e.active !== false; })
+    var allWeekly = (data.weekly || []).filter(function (e) { return e.active !== false; })
       .map(function (e) { return { ev: e, date: nextWeekday(e.day, today), recurring: true }; });
-    var special = (data.special || []).map(function (e) { return { ev: e, date: parseDate(e.date), recurring: false }; })
+    var allSpecial = (data.special || []).map(function (e) { return { ev: e, date: parseDate(e.date), recurring: false }; })
       .filter(function (x) { return x.date >= today; });
+    renderStats(allWeekly);
+    renderDayFilter(allWeekly);
+    var dayOk = function (x) { return dayFilter === "All" || DAYS[x.date.getUTCDay()] === dayFilter; };
+    var weekly = allWeekly.filter(dayOk), special = allSpecial.filter(dayOk);
     var byDate = function (a, b) { return a.date - b.date || (a.ev.start_time || "").localeCompare(b.ev.start_time || ""); };
     weekly.sort(byDate); special.sort(byDate);
     var card = function (x) { return eventCard(x.ev, stores[x.ev.store], x.date, { recurring: x.recurring }); };
@@ -397,21 +493,58 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
 
     // Group weekly nights by store region ("Dallas" / "Fort Worth"), matching the flyer's Dallas side / Fort Worth side split.
     var regions = [];
-    weekly.forEach(function (x) { var s = stores[x.ev.store], r = (s && s.region) || "Other"; if (regions.indexOf(r) < 0) regions.push(r); });
+    allWeekly.forEach(function (x) { var s = stores[x.ev.store], r = (s && s.region) || "Other"; if (regions.indexOf(r) < 0) regions.push(r); });
     var order = ["Dallas", "Fort Worth"];
     regions.sort(function (a, b) { var ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
     var grouped = regions.map(function (r) {
       var items = weekly.filter(function (x) { var s = stores[x.ev.store]; return ((s && s.region) || "Other") === r; });
       var label = r === "Other" ? "More of DFW" : r + " side";
-      return '<div class="stack"><h3 class="region">' + esc(label) + ' <span class="count">' + items.length + (items.length === 1 ? ' night' : ' nights') + '</span></h3>' + items.map(card).join("") + '</div>';
+      var body = items.length ? items.map(card).join("") : '<div class="empty">No ' + esc(dayFilter) + ' nights on this side.</div>';
+      return '<div class="stack"><h3 class="region">' + esc(label) + ' <span class="count">' + items.length + (items.length === 1 ? ' night' : ' nights') + '</span></h3>' + body + '</div>';
     }).join("");
     var weeklyEl = document.getElementById("weekly-events");
     weeklyEl.classList.toggle("cols", regions.length > 1 && !sampleNote);
     weeklyEl.innerHTML = weekly.length ? sampleNote + grouped : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
-    document.getElementById("special-events").innerHTML = special.length ? special.map(card).join("") : '<div class="empty">No special events scheduled right now.</div>';
+    document.getElementById("special-events").innerHTML = special.length ? special.map(card).join("") : '<div class="empty">No special events ' + (dayFilter === "All" ? "scheduled right now." : "on a " + esc(dayFilter) + " right now.") + '</div>';
     var week = new Date(today.getTime()); week.setUTCDate(week.getUTCDate() + 7);
-    var upcoming = weekly.concat(special.filter(function (x) { return x.date < week; })).sort(byDate).slice(0, 5);
+    var upcoming = allWeekly.concat(allSpecial.filter(function (x) { return x.date < week; })).sort(byDate).slice(0, 5);
     document.getElementById("home-events").innerHTML = upcoming.length ? sampleNote + upcoming.map(card).join("") : '<div class="empty">Nothing on the calendar this week yet. Check back soon.</div>';
+  }
+
+  function renderDayFilter(allWeekly) {
+    var counts = {};
+    allWeekly.forEach(function (x) { var d = DAYS[x.date.getUTCDay()]; counts[d] = (counts[d] || 0) + 1; });
+    var days = DAYS.filter(function (d) { return counts[d]; });
+    var btn = function (d, label, n) { return '<button type="button" data-day="' + d + '" aria-pressed="' + (dayFilter === d) + '">' + label + (n ? '<span class="n">' + n + '</span>' : '') + '</button>'; };
+    document.getElementById("day-filter").innerHTML = days.length > 1
+      ? btn("All", "All", allWeekly.length) + days.map(function (d) { return btn(d, d.slice(0, 3), counts[d]); }).join("") : "";
+  }
+  document.getElementById("day-filter").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-day]"); if (!b || !eventsData) return;
+    dayFilter = b.getAttribute("data-day"); renderEvents(eventsData);
+  });
+
+  var siteData = {}, weeklyCount = null, storeCount = null;
+  function renderStats(allWeekly) {
+    if (allWeekly) {
+      weeklyCount = allWeekly.length;
+      var ids = {}; allWeekly.forEach(function (x) { ids[x.ev.store] = 1; }); storeCount = Object.keys(ids).length;
+    }
+    var items = [];
+    if (weeklyCount) items.push([weeklyCount, "Weekly nights"]);
+    if (storeCount) items.push([storeCount, "Stores"]);
+    if (siteData.discord_members) items.push([siteData.discord_members, "On Discord"]);
+    if (siteData.deck_cost) items.push([siteData.deck_cost, "Most top decks"]);
+    document.getElementById("hero-stats").innerHTML = items.map(function (i) { return '<div><dt>' + esc(i[1]) + '</dt><dd>' + esc(i[0]) + '</dd></div>'; }).join("");
+  }
+
+  function renderFaq(f) {
+    var discord = (siteData.links || []).filter(function (l) { return l.label === "Discord" && l.url; })[0];
+    document.getElementById("faq-list").innerHTML = f.items.map(function (it) {
+      var paras = String(it.a).split(/\n\n/).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join("");
+      if (it.id === "discord") paras += discord ? '<p><a class="btn" href="' + esc(discord.url) + '" target="_blank" rel="noopener">Join the Discord</a></p>' : '<p>Ask a regular at any store night for an invite.</p>';
+      return '<details id="faq-' + esc(it.id) + '"><summary>' + esc(it.q) + '</summary><div class="ans">' + paras + '</div></details>';
+    }).join("");
   }
 
   function pips(colors) { return '<span class="pips" aria-label="' + esc(colors) + '">' + String(colors || "").split("").map(function (c) { return '<span class="pip ' + esc(c) + '"></span>'; }).join("") + '</span>'; }
@@ -439,6 +572,13 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       return '<li><a href="https://scryfall.com/search?q=' + encodeURIComponent('!"' + c + '"') + '" target="_blank" rel="noopener">' + esc(c) + '</a></li>';
     }).join("");
     document.getElementById("banned-also").textContent = b.also_banned ? "Also banned: " + b.also_banned : "";
+    var ch = b.recent_changes || [];
+    document.getElementById("banned-changes-panel").hidden = !ch.length;
+    document.getElementById("banned-changes").innerHTML = ch.map(function (c) { return '<li><span class="d">' + esc(fmtLong(c.date)) + '</span><span>' + esc(c.change) + '</span></li>'; }).join("");
+    var w = b.watch_list || [];
+    document.getElementById("banned-watch-panel").hidden = !w.length;
+    document.getElementById("banned-watch-note").textContent = b.watch_note || "";
+    document.getElementById("banned-watch").innerHTML = w.map(function (c) { return '<li><a href="https://scryfall.com/search?q=' + encodeURIComponent('!"' + c + '"') + '" target="_blank" rel="noopener">' + esc(c) + '</a></li>'; }).join("");
   }
 
   function renderSite(s) {
@@ -454,7 +594,8 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   getJSON("data/events.json").then(renderEvents).catch(function () { fail("home-events", "events"); fail("weekly-events", "events"); });
   getJSON("data/meta.json").then(renderMeta).catch(function () { document.getElementById("home-meta").textContent = "Couldn't load the meta."; });
   getJSON("data/banned.json").then(renderBanned).catch(function () { fail("banned-list", "the banned list"); });
-  getJSON("data/site.json").then(renderSite).catch(function () {});
+  var sitePromise = getJSON("data/site.json").then(function (s) { siteData = s; renderSite(s); renderStats(); }).catch(function () {});
+  sitePromise.then(function () { return getJSON("data/faq.json"); }).then(renderFaq).catch(function () { fail("faq-list", "the FAQ"); });
 
   function show() {
     var v = (location.hash || "").slice(1); if (VIEWS.indexOf(v) < 0) v = "home";
