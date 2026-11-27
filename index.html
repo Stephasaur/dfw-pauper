@@ -344,13 +344,13 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     <!-- Anatomy of a card -->
     <div class="stack">
       <h2>How to tell if a card is common</h2>
-      <p class="lede">Every Magic card shows its rarity in the color of its set symbol. In Pauper, you look for <strong>black</strong>.</p>
+      <p class="lede">Every Magic card shows its rarity in the color of its set symbol, and newer cards also print it as a letter in the bottom-left corner. In Pauper, you look for a <strong>black</strong> symbol or a <strong>C</strong>.</p>
     </div>
     <div class="anatomy">
       <figure class="mockcard">
         <svg viewBox="0 0 300 420" role="img" aria-labelledby="mock-title mock-desc">
           <title id="mock-title">Example Magic card, labeled</title>
-          <desc id="mock-desc">An original example card called Trinity River Heron. Its parts are numbered: 1 name, 2 mana cost, 3 art, 4 type line, 5 set symbol in black meaning common, 6 rules text, 7 power and toughness.</desc>
+          <desc id="mock-desc">An original example card called Trinity River Heron. Its parts are numbered: 1 name, 2 mana cost, 3 art, 4 type line, 5 set symbol in black meaning common, 6 rules text, 7 power and toughness, 8 the rarity letter C in the collector info at the bottom left, meaning common.</desc>
           <defs>
             <linearGradient id="mc-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B7A75"/><stop offset="1" stop-color="#FF934F"/></linearGradient>
           </defs>
@@ -379,7 +379,10 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
           <!-- p/t -->
           <rect x="226" y="364" width="50" height="28" rx="6" fill="#eef3f7" stroke="#171A21" stroke-width="1.5"/>
           <text x="251" y="383" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="14" fill="#171A21">1/1</text>
-          <text x="24" y="404" font-family="Inter, Arial, sans-serif" font-size="8" fill="#171A21" opacity=".75">EXAMPLE CARD · NOT A REAL MAGIC CARD</text>
+          <!-- collector info (bottom left) -->
+          <text font-family="Inter, Arial, sans-serif" font-size="8.5" fill="#171A21"><tspan x="30" y="389">042/271 <tspan dx="2" font-weight="800">C</tspan></tspan><tspan x="30" y="400">DFW · EN</tspan></text>
+          <rect x="64.5" y="380" width="11" height="12" rx="2" fill="none" stroke="#FF934F" stroke-width="1.8"/>
+          <text x="216" y="402" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="6.5" fill="#171A21" opacity=".75">EXAMPLE · NOT A REAL CARD</text>
           <!-- numbered callouts -->
           <g class="callouts" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="12" text-anchor="middle">
             <g transform="translate(14,40)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">1</text></g>
@@ -389,6 +392,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
             <g transform="translate(286,252)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">5</text></g>
             <g transform="translate(14,300)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">6</text></g>
             <g transform="translate(286,378)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">7</text></g>
+            <g transform="translate(14,396)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">8</text></g>
           </g>
         </svg>
         <figcaption>An example card we made up. Real cards follow the same layout.</figcaption>
@@ -402,6 +406,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
           <li class="hl"><strong>Set symbol.</strong> Shows which set the card is from. <strong>Its color is the rarity.</strong> Black means common, so this card would be Pauper legal (as long as it isn't on the banned list).</li>
           <li><strong>Rules text.</strong> What the card does. Italic text below it is flavor text, just for story.</li>
           <li><strong>Power / toughness.</strong> Creatures only. Power is the damage it deals in combat, toughness is the damage it can take.</li>
+          <li class="hl"><strong>Rarity letter.</strong> Newer cards also print the rarity in the small collector info in the bottom-left corner: <strong>C</strong> for common, U for uncommon, R for rare and M for mythic. A <strong>C</strong> here means the same thing as a black set symbol.</li>
         </ol>
         <div class="panel rarity">
           <h3>Set symbol colors</h3>
@@ -411,7 +416,9 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="rs-r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#a7822a"/></linearGradient></defs><path d="M12 2l3 6.3 6.9 1-5 4.8 1.2 6.9L12 17.7 5.9 21l1.2-6.9-5-4.8 6.9-1z" fill="url(#rs-r)" stroke="#171A21" stroke-width=".8"/></svg><span><strong>Gold</strong> Rare</span></li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="rs-m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6a04d"/><stop offset="1" stop-color="#c0391b"/></linearGradient></defs><path d="M12 2l3 6.3 6.9 1-5 4.8 1.2 6.9L12 17.7 5.9 21l1.2-6.9-5-4.8 6.9-1z" fill="url(#rs-m)" stroke="#171A21" stroke-width=".8"/></svg><span><strong>Orange-red</strong> Mythic rare</span></li>
           </ul>
-          <p class="cards">One catch: some cards have been printed at different rarities over the years. If a card was printed as a common <em>even once</em> in a paper set or on Magic Online, it's legal in Pauper, even if your copy has a silver or gold symbol. The quickest check is to search the card on <a href="https://scryfall.com/search?q=legal%3Apauper" target="_blank" rel="noopener">Scryfall</a>.</p>
+          <h3>One catch: check Scryfall</h3>
+          <p class="cards">Some cards get reprinted at a different rarity later. If a card was printed as a common <em>even once</em> in a paper set or on Magic Online, it's legal in Pauper. So the copy in your hand might have a silver symbol and a <strong>U</strong> and still be Pauper legal, because a newer printing made it a common.</p>
+          <p class="cards">The rarity on your card only tells you about that printing. To be sure, look the card up on <a href="https://scryfall.com/" target="_blank" rel="noopener">Scryfall</a> and check the <strong>Legalities</strong> list on its page. If Pauper says <strong>Legal</strong>, you can play it. You can also add <a href="https://scryfall.com/search?q=f%3Apauper" target="_blank" rel="noopener">f:pauper</a> to any Scryfall search to see only Pauper-legal cards.</p>
         </div>
       </div>
     </div>
