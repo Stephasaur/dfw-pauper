@@ -1,0 +1,29 @@
+{
+  "name": "DFW Pauper",
+  "tagline": "Commons-only Magic across Dallas-Fort Worth",
+  "url": "",
+  "_how_to_edit": "Set url to the public website address once it's live. Paste each profile URL between the quotes. Leave a link empty to hide it.",
+  "links": [
+    {
+      "label": "Discord",
+      "url": ""
+    },
+    {
+      "label": "Instagram",
+      "url": ""
+    },
+    {
+      "label": "Facebook",
+      "url": ""
+    },
+    {
+      "label": "Bluesky",
+      "url": ""
+    },
+    {
+      "label": "X",
+      "url": ""
+    }
+  ],
+  "contact_email": ""
+}

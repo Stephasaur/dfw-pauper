@@ -1,0 +1,49 @@
+{
+  "updated": "2026-11-27",
+  "timezone": "America/Chicago",
+  "_how_to_edit": "Add stores to 'stores', then add weekly events to 'weekly' and one-off events to 'special'. Times are 24-hour Central time (19:00 = 7 PM). Delete the sample entries (sample: true) once you have real ones. Sample entries are hidden from social posts.",
+  "stores": [
+    {
+      "id": "example-store",
+      "name": "Example Game Store",
+      "address": "123 Main St",
+      "city": "Dallas",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": ""
+    }
+  ],
+  "weekly": [
+    {
+      "id": "example-weekly",
+      "store": "example-store",
+      "day": "Thursday",
+      "start_time": "19:00",
+      "entry_fee": "$5",
+      "prizes": "Store credit for the top 4",
+      "notes": "Ask the store about their proxy policy.",
+      "active": true,
+      "sample": true,
+      "signup_url": "",
+      "format_notes": "Paper, 60-card deck, 15-card sideboard"
+    }
+  ],
+  "special": [
+    {
+      "id": "example-special",
+      "store": "example-store",
+      "date": "2026-12-20",
+      "start_time": "12:00",
+      "title": "DFW Pauper Holiday Open",
+      "entry_fee": "$15",
+      "prizes": "Prize pool split across the top 8",
+      "notes": "Ask the store about their proxy policy.",
+      "sample": true,
+      "signup_url": "",
+      "format_notes": "Paper, 60-card deck, 15-card sideboard",
+      "image": ""
+    }
+  ]
+}

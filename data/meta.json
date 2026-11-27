@@ -1,0 +1,23 @@
+{
+  "as_of": "2026-11-27",
+  "source": "MTGGoldfish (last 30 days of Magic Online results)",
+  "source_url": "https://www.mtggoldfish.com/metagame/pauper",
+  "_how_to_edit": "Once a month, open the source_url, copy the top 10 decks and their share %, and update as_of. 'style' is aggro, tempo, control, combo, ramp or midrange.",
+  "decks": [
+    {"name": "Mono Red Madness", "share": 14.2, "colors": "R",   "style": "Aggro",  "key_cards": ["Kessig Flamebreather", "Lava Dart", "Fireblast"]},
+    {"name": "Dimir Faeries",    "share": 9.1,  "colors": "UB",  "style": "Tempo",  "key_cards": ["Spellstutter Sprite", "Snuff Out", "Baleful Strix"]},
+    {"name": "Mono Blue Terror", "share": 9.1,  "colors": "U",   "style": "Tempo",  "key_cards": ["Tolarian Terror", "Mental Note", "Counterspell"]},
+    {"name": "Ruby Storm",       "share": 5.5,  "colors": "R",   "style": "Combo",  "key_cards": ["Seething Song", "Desperate Ritual", "Manamorphose"]},
+    {"name": "Spy Combo",        "share": 5.1,  "colors": "BG",  "style": "Combo",  "key_cards": ["Land Grant", "Masked Vandal", "Generous Ent"]},
+    {"name": "Tron",             "share": 4.7,  "colors": "G",   "style": "Ramp",   "key_cards": ["Expedition Map", "Malevolent Rumble", "Nyxborn Hydra"]},
+    {"name": "Bogles",           "share": 4.4,  "colors": "GW",  "style": "Aggro",  "key_cards": ["Slippery Bogle", "Ancestral Mask", "Utopia Sprawl"]},
+    {"name": "Elves",            "share": 4.2,  "colors": "G",   "style": "Aggro",  "key_cards": ["Llanowar Elves", "Timberwatch Elf", "Masked Vandal"]},
+    {"name": "Grixis Affinity",  "share": 3.7,  "colors": "UBR", "style": "Aggro",  "key_cards": ["Galvanic Blast", "Reckoner's Bargain", "Myr Enforcer"]},
+    {"name": "Mono Red Rally",   "share": 3.6,  "colors": "R",   "style": "Aggro",  "key_cards": ["Goblin Bushwhacker", "Lightning Bolt", "Galvanic Blast"]}
+  ],
+  "more_sources": [
+    {"name": "MTGGoldfish Pauper metagame", "url": "https://www.mtggoldfish.com/metagame/pauper"},
+    {"name": "MTGDecks Pauper meta", "url": "https://mtgdecks.net/Pauper"},
+    {"name": "MTGTop8 Pauper", "url": "https://www.mtgtop8.com/format?f=PAU"}
+  ]
+}
