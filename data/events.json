@@ -13,6 +13,17 @@
       "discord_url": "",
       "facebook_url": "",
       "instagram_handle": ""
+    },
+    {
+      "id": "zenith-tcg-plano",
+      "name": "Zenith TCG",
+      "address": "",
+      "city": "Plano",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": ""
     }
   ],
   "weekly": [
@@ -54,6 +65,19 @@
       "sample": false,
       "signup_url": "",
       "format_notes": "Swiss rounds"
+    },
+    {
+      "id": "zenith-tcg-plano-thursday",
+      "store": "zenith-tcg-plano",
+      "day": "Thursday",
+      "start_time": "19:00",
+      "entry_fee": "$10",
+      "prizes": "Store credit and other prizes",
+      "notes": "Weekly MTG Pauper League, 7–10 PM. Buy a ticket in advance; arrive 10–15 minutes early to check in (late players can't join).",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": ""
     }
   ],
   "special": []
