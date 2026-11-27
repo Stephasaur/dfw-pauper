@@ -726,8 +726,6 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     var items = [];
     if (weeklyCount) items.push([weeklyCount, "Weekly events"]);
     if (storeCount) items.push([storeCount, "Stores"]);
-    var cd = siteData.community_discord;
-    if (cd && cd.members) items.push([cd.members, "In the local Discord"]);
     document.getElementById("hero-stats").innerHTML = items.map(function (i) { return '<div><dt>' + esc(i[1]) + '</dt><dd>' + esc(i[0]) + '</dd></div>'; }).join("");
   }
 
