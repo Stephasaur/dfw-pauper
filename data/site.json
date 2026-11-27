@@ -7,27 +7,32 @@
     "url": "https://discord.gg/DKzPqTRTJ",
     "note": "The established local Pauper server (not run by DFW Pauper). When our own server is ready, swap name/url here."
   },
-  "_how_to_edit": "Set url to the public website address. community_discord is the Discord we send new players to: change its name and url to switch servers. 'links' are DFW Pauper's own social profiles: paste each URL between the quotes, leave empty to hide.",
+  "_how_to_edit": "Set url to the public website address. community_discord is the Discord we send new players to: change its name and url to switch servers. 'links' are DFW Pauper's own social profiles: paste each URL between the quotes, leave empty to hide. 'handle' is the @name shown for social posts (optional). The Discord entry here is for DFW Pauper's own server once it launches; until then it stays empty and community_discord is used.",
   "links": [
     {
       "label": "Discord",
-      "url": ""
+      "url": "",
+      "handle": ""
     },
     {
       "label": "Instagram",
-      "url": ""
+      "url": "https://www.instagram.com/dfwpauper/",
+      "handle": "@dfwpauper"
     },
     {
       "label": "Facebook",
-      "url": ""
+      "url": "https://www.facebook.com/profile.php?id=61594520002371",
+      "handle": ""
     },
     {
       "label": "Bluesky",
-      "url": ""
+      "url": "https://bsky.app/profile/dfwpauper.bsky.social",
+      "handle": "@dfwpauper.bsky.social"
     },
     {
       "label": "X",
-      "url": ""
+      "url": "https://x.com/dfwpauper",
+      "handle": "@dfwpauper"
     }
   ],
   "contact_email": ""
