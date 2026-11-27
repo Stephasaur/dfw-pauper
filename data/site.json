@@ -1,28 +1,28 @@
 {
   "name": "DFW Pauper",
   "tagline": "Commons-only Magic across Dallas-Fort Worth",
-  "url": "",
+  "url": "https://stephasaur.github.io/dfw-pauper/",
   "_how_to_edit": "Set url to the public website address once it's live. Paste each profile URL between the quotes. Leave a link empty to hide it.",
   "links": [
     {
       "label": "Discord",
-      "url": ""
+      "url": "https://stephasaur.github.io/dfw-pauper/"
     },
     {
       "label": "Instagram",
-      "url": ""
+      "url": "https://stephasaur.github.io/dfw-pauper/"
     },
     {
       "label": "Facebook",
-      "url": ""
+      "url": "https://stephasaur.github.io/dfw-pauper/"
     },
     {
       "label": "Bluesky",
-      "url": ""
+      "url": "https://stephasaur.github.io/dfw-pauper/"
     },
     {
       "label": "X",
-      "url": ""
+      "url": "https://stephasaur.github.io/dfw-pauper/"
     }
   ],
   "contact_email": ""
