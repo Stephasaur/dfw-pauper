@@ -92,6 +92,9 @@ section.view { display: grid; gap: 28px; }
 .event .meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--muted); font-size: .92rem; }
 .tag { display: inline-block; font: 700 .68rem/1 var(--body); text-transform: uppercase; letter-spacing: .08em; padding: 5px 7px; border-radius: 4px; background: var(--emerald-soft); color: var(--emerald-ink); }
 .tag.sample { background: var(--hot-soft); color: #8a3d0c; }
+.events.weekly { gap: 32px; }
+h3.region { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 3px solid var(--hot); }
+h3.region .count { font: 600 .78rem/1 var(--body); text-transform: none; letter-spacing: 0; color: var(--muted); }
 .empty { border: 1px dashed var(--line); border-radius: 10px; padding: 22px; color: var(--muted); }
 .callout { background: var(--hot); color: var(--ink); border-radius: 10px; padding: 14px 18px; font-size: .95rem; font-weight: 500; }
 .callout strong { font-weight: 700; }
@@ -207,12 +210,12 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <p class="lede">Weekly store events and special tournaments across Dallas-Fort Worth. Always check the store's page before you drive out.</p>
     </div>
     <div class="stack">
-      <h3>Special events</h3>
+      <h2>Special events</h2>
       <div class="events" id="special-events"></div>
     </div>
     <div class="stack">
-      <h3>Every week</h3>
-      <div class="events" id="weekly-events"></div>
+      <h2>Every week</h2>
+      <div class="events weekly" id="weekly-events"></div>
     </div>
   </section>
 
@@ -388,10 +391,20 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     var sampleNote = weekly.concat(special).some(function (x) { return x.ev.sample; })
       ? '<div class="callout"><strong>Sample listings.</strong> We are lining up our first partner stores. These show how events will look and will be replaced with real ones.</div>' : "";
 
-    document.getElementById("weekly-events").innerHTML = weekly.length ? sampleNote + weekly.map(card).join("") : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
+    // Group weekly nights by store region ("Dallas" / "Fort Worth"), matching the flyer's Dallas side / Fort Worth side split.
+    var regions = [];
+    weekly.forEach(function (x) { var s = stores[x.ev.store], r = (s && s.region) || "Other"; if (regions.indexOf(r) < 0) regions.push(r); });
+    var order = ["Dallas", "Fort Worth"];
+    regions.sort(function (a, b) { var ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
+    var grouped = regions.map(function (r) {
+      var items = weekly.filter(function (x) { var s = stores[x.ev.store]; return ((s && s.region) || "Other") === r; });
+      var label = r === "Other" ? "More of DFW" : r + " side";
+      return '<div class="stack"><h3 class="region">' + esc(label) + ' <span class="count">' + items.length + (items.length === 1 ? ' night' : ' nights') + '</span></h3>' + items.map(card).join("") + '</div>';
+    }).join("");
+    document.getElementById("weekly-events").innerHTML = weekly.length ? sampleNote + grouped : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
     document.getElementById("special-events").innerHTML = special.length ? special.map(card).join("") : '<div class="empty">No special events scheduled right now.</div>';
     var week = new Date(today.getTime()); week.setUTCDate(week.getUTCDate() + 7);
-    var upcoming = weekly.concat(special.filter(function (x) { return x.date < week; })).sort(byDate).slice(0, 4);
+    var upcoming = weekly.concat(special.filter(function (x) { return x.date < week; })).sort(byDate).slice(0, 5);
     document.getElementById("home-events").innerHTML = upcoming.length ? sampleNote + upcoming.map(card).join("") : '<div class="empty">Nothing on the calendar this week yet. Check back soon.</div>';
   }
 
