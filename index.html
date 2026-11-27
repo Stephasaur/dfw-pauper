@@ -173,6 +173,9 @@ ol.timeline h3 { margin-bottom: 4px; }
 .events.weekly.cols > .stack { min-width: 0; }
 .events.weekly.cols .event { grid-template-columns: 64px 1fr; gap: 14px; padding: 14px; }
 .events.weekly.cols .datechip .day { font-size: 1.7rem; }
+h3.dategroup { font-size: 1rem; padding-bottom: 6px; border-bottom: 2px solid var(--line); margin-top: 8px; }
+.callout.warn { border-color: var(--hot); background: var(--hot-soft); color: #171A21; }
+.callout.warn ul { margin: 6px 0 0; padding-left: 20px; }
 h3.region { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 3px solid var(--hot); }
 h3.region .count { font: 600 .78rem/1 var(--body); text-transform: none; letter-spacing: 0; color: var(--muted); }
 .skip { display: inline-block; justify-self: start; font: 700 .78rem/1.3 var(--body); color: #8a3d0c; background: var(--hot-soft); border-radius: 4px; padding: 5px 8px; }
@@ -291,13 +294,19 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <h2>DFW Pauper events</h2>
       <p class="lede">Weekly store events and special tournaments across Dallas-Fort Worth. Always check the store's page before you drive out.</p>
     </div>
+    <div id="events-problems"></div>
+    <div class="dayfilter" id="day-filter" role="group" aria-label="Filter by day"></div>
     <div class="stack">
-      <h2>Special events</h2>
-      <div class="events" id="special-events"></div>
+      <h2>Next two weeks</h2>
+      <p class="cards">Every event on the calendar, in date order: weekly events, special events and moved dates. Cancelled weeks are left out.</p>
+      <div class="events" id="schedule-events"></div>
+    </div>
+    <div class="stack" id="later-wrap" hidden>
+      <h2>Later special events</h2>
+      <div class="events" id="later-events"></div>
     </div>
     <div class="stack">
       <h2>Every week</h2>
-      <div class="dayfilter" id="day-filter" role="group" aria-label="Filter by day"></div>
       <div class="events weekly" id="weekly-events"></div>
     </div>
   </section>
@@ -652,6 +661,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   function parseDate(s) { var p = s.split("-"); return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])); }
   function fmtTime(t) {
     if (!t) return "";
+    if (!/^\d{1,2}:\d{2}$/.test(String(t))) return esc(t);
     var p = t.split(":"), h = +p[0], m = p[1] || "00";
     return (h % 12 || 12) + (m === "00" ? "" : ":" + m) + (h < 12 ? " AM" : " PM");
   }
@@ -697,25 +707,80 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   }
 
   var eventsData = null, dayFilter = "All";
+  var SCHEDULE_DAYS = 14, HOME_DAYS = 7;
+  function addDays(d, n) { var x = new Date(d.getTime()); x.setUTCDate(x.getUTCDate() + n); return x; }
+  function validDate(s) { return /^\d{4}-\d{2}-\d{2}$/.test(String(s || "")) && !isNaN(parseDate(s)); }
+  // Every date a weekly event runs from `from` up to (not including) `until`, minus cancelled weeks.
+  function occurrences(ev, from, until) {
+    var out = [], skip = ev.skip_dates || [];
+    for (var d = nextWeekday(ev.day, from); d < until; d = addDays(d, 7)) if (skip.indexOf(iso(d)) < 0) out.push(d);
+    return out;
+  }
+  function fmtDay(d) { return DAYS[d.getUTCDay()] + ", " + MONTHS[d.getUTCMonth()] + " " + d.getUTCDate(); }
+
+  // Reads every entry in events.json. Anything the site can't place on the calendar is listed in `problems`.
+  function collectEvents(data) {
+    var stores = {}, problems = [];
+    (data.stores || []).forEach(function (s) { stores[s.id] = s; });
+    var checkCommon = function (e, label) {
+      if (!e.store || !stores[e.store]) problems.push(label + ': store "' + (e.store || "") + '" isn\'t in the stores list, so its name and address are missing.');
+      if (!/^\d{1,2}:\d{2}$/.test(String(e.start_time || ""))) problems.push(label + ': start_time "' + (e.start_time || "") + '" should look like 19:00.');
+    };
+    var weekly = [];
+    (data.weekly || []).forEach(function (e, n) {
+      var label = 'Weekly "' + (e.id || "#" + (n + 1)) + '"';
+      if (e.active === false) return; // paused on purpose
+      if (DAYS.indexOf(e.day) < 0) { problems.push(label + ': day "' + (e.day || "") + '" isn\'t a day name like Saturday, so it can\'t be shown.'); return; }
+      (e.skip_dates || []).forEach(function (sd) { if (!validDate(sd)) problems.push(label + ': skip date "' + sd + '" should look like 2026-12-24.'); });
+      checkCommon(e, label);
+      weekly.push(e);
+    });
+    var special = [];
+    (data.special || []).forEach(function (e, n) {
+      var label = 'Special "' + (e.id || "#" + (n + 1)) + '"';
+      if (!validDate(e.date)) { problems.push(label + ': date "' + (e.date || "") + '" should look like 2026-12-20, so it can\'t be shown.'); return; }
+      checkCommon(e, label);
+      special.push({ ev: e, date: parseDate(e.date), recurring: false });
+    });
+    problems.forEach(function (p) { console.warn("[events.json] " + p); });
+    return { stores: stores, weekly: weekly, special: special, problems: problems };
+  }
+
   function renderEvents(data) {
     eventsData = data;
-    var stores = {}; (data.stores || []).forEach(function (s) { stores[s.id] = s; });
-    var today = todayCentral();
-    var allWeekly = (data.weekly || []).filter(function (e) { return e.active !== false; })
-      .map(function (e) { return { ev: e, date: nextRun(e, today), recurring: true }; });
-    var allSpecial = (data.special || []).map(function (e) { return { ev: e, date: parseDate(e.date), recurring: false }; })
-      .filter(function (x) { return x.date >= today; });
-    renderStats(allWeekly);
-    renderDayFilter(allWeekly);
-    var dayOk = function (x) { return dayFilter === "All" || DAYS[x.date.getUTCDay()] === dayFilter; };
-    var weekly = allWeekly.filter(dayOk), special = allSpecial.filter(dayOk);
+    var c = collectEvents(data), stores = c.stores, today = todayCentral();
     var byDate = function (a, b) { return a.date - b.date || (a.ev.start_time || "").localeCompare(b.ev.start_time || ""); };
-    weekly.sort(byDate); special.sort(byDate);
     var card = function (x) { return eventCard(x.ev, stores[x.ev.store], x.date, { recurring: x.recurring }); };
-    var sampleNote = weekly.concat(special).some(function (x) { return x.ev.sample; })
+    var upcomingSpecial = c.special.filter(function (x) { return x.date >= today; }).sort(byDate);
+    var allWeekly = c.weekly.map(function (e) { return { ev: e, date: nextRun(e, today), recurring: true }; });
+    var schedule = function (days) {
+      var until = addDays(today, days), list = [];
+      c.weekly.forEach(function (e) { occurrences(e, today, until).forEach(function (d) { list.push({ ev: e, date: d, recurring: true }); }); });
+      upcomingSpecial.forEach(function (x) { if (x.date < until) list.push(x); });
+      return list.sort(byDate);
+    };
+    renderStats(allWeekly);
+    renderDayFilter(allWeekly, upcomingSpecial);
+    var dayOk = function (x) { return dayFilter === "All" || DAYS[x.date.getUTCDay()] === dayFilter; };
+    var sampleNote = allWeekly.concat(upcomingSpecial).some(function (x) { return x.ev.sample; })
       ? '<div class="callout"><strong>Sample listings.</strong> We are lining up our first partner stores. These show how events will look and will be replaced with real ones.</div>' : "";
 
-    // Group weekly events by store region ("Dallas" / "Fort Worth"), matching the flyer's Dallas side / Fort Worth side split.
+    document.getElementById("events-problems").innerHTML = c.problems.length
+      ? '<div class="callout warn"><strong>Organizers: ' + c.problems.length + (c.problems.length === 1 ? ' listing needs' : ' listings need') + ' fixing in events.json.</strong><ul>' + c.problems.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join("") + '</ul></div>' : "";
+
+    // Date-ordered schedule: everything in the next two weeks, grouped under a heading per day.
+    var sched = schedule(SCHEDULE_DAYS).filter(dayOk), html = "", last = "";
+    sched.forEach(function (x) { var k = iso(x.date); if (k !== last) { html += '<h3 class="dategroup">' + (k === iso(today) ? "Today · " : "") + fmtDay(x.date) + '</h3>'; last = k; } html += card(x); });
+    document.getElementById("schedule-events").innerHTML = sched.length ? sampleNote + html
+      : '<div class="empty">' + (dayFilter === "All" ? "Nothing on the calendar in the next two weeks." : "No events scheduled for this day.") + '</div>';
+
+    // Special events past the two-week window, so nothing further out is hidden.
+    var later = upcomingSpecial.filter(function (x) { return x.date >= addDays(today, SCHEDULE_DAYS); }).filter(dayOk);
+    document.getElementById("later-wrap").hidden = !later.length;
+    document.getElementById("later-events").innerHTML = later.map(card).join("");
+
+    // Weekly directory grouped by store region ("Dallas" / "Fort Worth"), matching the flyer's split.
+    var weekly = allWeekly.filter(dayOk).sort(byDate);
     var regions = [];
     allWeekly.forEach(function (x) { var s = stores[x.ev.store], r = (s && s.region) || "Other"; if (regions.indexOf(r) < 0) regions.push(r); });
     var order = ["Dallas", "Fort Worth"];
@@ -729,20 +794,20 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     var weeklyEl = document.getElementById("weekly-events");
     var noneThisDay = dayFilter !== "All" && !weekly.length && allWeekly.length;
     weeklyEl.classList.toggle("cols", regions.length > 1 && !sampleNote && !noneThisDay);
-    weeklyEl.innerHTML = noneThisDay ? '<div class="empty">No events scheduled for this day.</div>'
-      : weekly.length ? sampleNote + grouped : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
-    document.getElementById("special-events").innerHTML = special.length ? special.map(card).join("") : '<div class="empty">No special events ' + (dayFilter === "All" ? "scheduled right now." : "on a " + esc(dayFilter) + " right now.") + '</div>';
-    var week = new Date(today.getTime()); week.setUTCDate(week.getUTCDate() + 7);
-    var upcoming = allWeekly.concat(allSpecial.filter(function (x) { return x.date < week; })).sort(byDate).slice(0, 5);
-    document.getElementById("home-events").innerHTML = upcoming.length ? sampleNote + upcoming.map(card).join("") : '<div class="empty">Nothing on the calendar this week yet. Check back soon.</div>';
+    weeklyEl.innerHTML = noneThisDay ? '<div class="empty">No weekly events on this day.</div>'
+      : weekly.length ? grouped : '<div class="empty">No weekly events listed yet. Store owners, <a href="#about">get in touch</a>.</div>';
+
+    // Home page: every event in the next 7 days.
+    var home = schedule(HOME_DAYS);
+    document.getElementById("home-events").innerHTML = home.length ? sampleNote + home.map(card).join("") : '<div class="empty">Nothing on the calendar this week yet. Check back soon.</div>';
   }
 
-  function renderDayFilter(allWeekly) {
-    var counts = {};
-    allWeekly.forEach(function (x) { var d = DAYS[x.date.getUTCDay()]; counts[d] = (counts[d] || 0) + 1; });
+  function renderDayFilter(allWeekly, specials) {
+    var counts = {}, all = allWeekly.concat(specials);
+    all.forEach(function (x) { var d = DAYS[x.date.getUTCDay()]; counts[d] = (counts[d] || 0) + 1; });
     var btn = function (d, label, n) { return '<button type="button" data-day="' + d + '" aria-pressed="' + (dayFilter === d) + '"' + (n ? '' : ' class="zero"') + '>' + label + '<span class="n">' + n + '</span></button>'; };
-    document.getElementById("day-filter").innerHTML = allWeekly.length
-      ? btn("All", "All", allWeekly.length) + DAYS.map(function (d) { return btn(d, d.slice(0, 3), counts[d] || 0); }).join("") : "";
+    document.getElementById("day-filter").innerHTML = all.length
+      ? btn("All", "All", all.length) + DAYS.map(function (d) { return btn(d, d.slice(0, 3), counts[d] || 0); }).join("") : "";
   }
   document.getElementById("day-filter").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-day]"); if (!b || !eventsData) return;
@@ -822,7 +887,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   }
 
   function fail(id, what) { var el = document.getElementById(id); if (el) el.innerHTML = '<div class="empty">Couldn\'t load ' + what + '. Refresh to try again.</div>'; }
-  getJSON("data/events.json").then(renderEvents).catch(function () { fail("home-events", "events"); fail("weekly-events", "events"); });
+  getJSON("data/events.json").then(renderEvents).catch(function () { fail("home-events", "events"); fail("schedule-events", "events"); fail("weekly-events", "events"); });
   getJSON("data/meta.json").then(renderMeta).catch(function () { document.getElementById("home-meta").textContent = "Couldn't load the meta."; });
   getJSON("data/banned.json").then(renderBanned).catch(function () { fail("banned-list", "the banned list"); });
   var sitePromise = getJSON("data/site.json").then(function (s) { siteData = s; renderSite(s); renderStats(); }).catch(function () {});
