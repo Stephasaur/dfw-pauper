@@ -4,7 +4,7 @@ A one-page static site. All the content you'll update lives in five small files 
 
 | File | What it holds | How often to update |
 |---|---|---|
-| `data/events.json` | Stores, weekly events, special events. Also read by the social auto-poster. | Whenever a store adds or changes a night |
+| `data/events.json` | Stores, weekly events, special events. Also read by the social auto-poster. | Whenever a store adds or changes an event |
 | `data/meta.json` | Top 10 worldwide Pauper decks and their share | Monthly (copy from MTGGoldfish) |
 | `data/banned.json` | Pauper banned list | After each Banned & Restricted announcement (next: Nov 30, 2026) |
 | `data/site.json` | Site name, live URL, the community Discord new players are sent to (name, invite), social links, contact email | When branding, links or stats change |
