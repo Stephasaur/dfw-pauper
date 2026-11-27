@@ -117,6 +117,41 @@ ul.changes { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; 
 ul.changes li { display: grid; grid-template-columns: 110px 1fr; gap: 12px; }
 ul.changes .d { font: 700 .78rem/1.6 var(--body); text-transform: uppercase; letter-spacing: .06em; color: var(--ocean); }
 
+/* What is Pauper */
+.why { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+ul.colors, ul.types { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+ul.colors li, ul.types li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: center; }
+ul.colors .ms { font-size: 1.15rem; }
+ul.types > li > .ms { font-size: 1.3rem; color: var(--ocean); justify-self: center; }
+ul.types .ms-artifact { color: var(--ocean); }
+.anatomy { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 32px; align-items: start; }
+.mockcard { margin: 0; display: grid; gap: 8px; }
+.mockcard svg { width: 100%; height: auto; max-width: 340px; filter: drop-shadow(0 10px 24px rgba(23,26,33,.25)); }
+.mockcard figcaption { font-size: .85rem; color: var(--muted); }
+ol.parts { margin: 0; padding: 0; list-style: none; counter-reset: p; display: grid; gap: 10px; }
+ol.parts li { counter-increment: p; position: relative; padding-left: 38px; min-height: 24px; }
+ol.parts li::before { position: absolute; left: 0; top: 0; content: counter(p); width: 24px; height: 24px; border-radius: 50%; background: var(--hot); color: var(--ink); border: 2px solid var(--ink); font: 800 .75rem/20px var(--body); text-align: center; }
+ol.parts li.hl { background: var(--hot-soft); border-radius: 8px; padding: 10px 10px 10px 48px; margin-inline: -10px; }
+ol.parts li.hl::before { left: 10px; top: 10px; }
+ul.rarities { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+ul.rarities li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: center; }
+ul.rarities svg { width: 24px; height: 24px; }
+ul.rarities em { color: var(--ocean); font-style: normal; font-weight: 700; }
+ol.timeline { list-style: none; margin: 0; padding: 0 0 0 4px; display: grid; gap: 0; border-left: 3px solid var(--line); }
+ol.timeline li { position: relative; display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 0 0 22px 22px; }
+ol.timeline li::before { content: ""; position: absolute; left: -10px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--hot); border: 2px solid var(--ink); }
+ol.timeline li:last-child::before { background: var(--ocean); }
+ol.timeline .when { font: 800 .85rem/1.4 var(--display); text-transform: uppercase; letter-spacing: .04em; color: var(--ocean); }
+ol.timeline h3 { margin-bottom: 4px; }
+.cta { gap: 14px; }
+.cta p { color: rgba(252,252,252,.9); }
+.btn.ghost.light { color: var(--white); box-shadow: inset 0 0 0 2px rgba(252,252,252,.45); }
+@media (max-width: 720px) {
+  .anatomy { grid-template-columns: 1fr; }
+  .mockcard { justify-items: center; }
+  ol.timeline li { grid-template-columns: 1fr; gap: 4px; }
+}
+
 /* Event cards */
 .events { display: grid; gap: 14px; }
 .event { display: grid; grid-template-columns: 82px 1fr; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
@@ -159,8 +194,8 @@ td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-spa
 
 /* Steps */
 ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 16px; }
-ol.steps li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 14px; }
-ol.steps li::before { content: counter(s); font: 900 1.2rem/1 var(--display); color: var(--ink); background: var(--hot); border-radius: 50%; width: 38px; height: 38px; display: grid; place-items: center; }
+ol.steps > li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 14px; }
+ol.steps > li::before { content: counter(s); font: 900 1.2rem/1 var(--display); color: var(--ink); background: var(--hot); border-radius: 50%; width: 38px; height: 38px; display: grid; place-items: center; }
 ol.steps h3 { margin-bottom: 4px; }
 ul.plain { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 
@@ -190,6 +225,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <span data-site="name">DFW Pauper</span>
     </a>
     <nav class="main" aria-label="Sections">
+      <a href="#what-is-pauper">What is Pauper?</a>
       <a href="#events">Events</a>
       <a href="#start">Get started</a>
       <a href="#meta">Meta</a>
@@ -208,7 +244,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <p>Pauper is Magic: The Gathering built entirely from common cards. It is fast, skill-heavy and more affordable than most formats. We track every Pauper event across the Metroplex so you always know where to play this week.</p>
       <div class="row">
         <a class="btn" href="#events">This week's events</a>
-        <a class="btn ghost" href="#start">New to Pauper?</a>
+        <a class="btn ghost" href="#what-is-pauper">What is Pauper?</a>
       </div>
       <dl class="stats" id="hero-stats"></dl>
     </div>
@@ -258,6 +294,149 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <h2>Every week</h2>
       <div class="dayfilter" id="day-filter" role="group" aria-label="Filter by day"></div>
       <div class="events weekly" id="weekly-events"></div>
+    </div>
+  </section>
+
+  <!-- WHAT IS PAUPER -->
+  <section class="view" id="view-what-is-pauper" hidden>
+    <div class="stack">
+      <div class="eyebrow">Start here</div>
+      <h2>What is Pauper?</h2>
+      <p class="lede">Pauper is a way to play Magic: The Gathering, the world's original trading card game, where <strong>every card in your deck has to be a common</strong>. Commons are the most-printed cards in every pack. Building with only commons takes the arms race out of deckbuilding, so games come down to skill, smart choices and a little luck.</p>
+      <div class="row">
+        <a class="btn" href="#events">Find a Pauper night near you</a>
+        <a class="btn ghost" href="#start">Build your first deck</a>
+      </div>
+    </div>
+
+    <div class="why">
+      <div class="panel"><h3>Skill over spending</h3><p>Nobody can buy their way past you with a stack of rare cards. Everyone draws from the same pool of commons.</p></div>
+      <div class="panel"><h3>Real Magic</h3><p>Same rules, same strategy, and many of the game's most famous cards, like Counterspell and Lightning Bolt, were printed as commons.</p></div>
+      <div class="panel"><h3>A welcoming crowd</h3><p>Pauper players love teaching the format. Most store nights have regulars who will walk a newcomer through their first games.</p></div>
+    </div>
+
+    <!-- Magic in five minutes -->
+    <div class="stack">
+      <h2>Magic in five minutes</h2>
+      <p class="lede">Never played Magic? Here's everything you need to follow a game.</p>
+    </div>
+    <ol class="steps">
+      <li><div><h3>You're a wizard with a deck of spells</h3><p>Each player brings their own deck of at least 60 cards and starts at <strong>20 life</strong>. Bring your opponent to 0 and you win.</p></div></li>
+      <li><div><h3>Lands make mana</h3><p>Once per turn you can play a land. Tap your lands for <strong>mana</strong>, the energy you spend to cast spells. Magic has five colors of mana, and each has its own personality:</p>
+        <ul class="colors">
+          <li><i class="ms ms-w ms-cost ms-shadow" aria-hidden="true"></i><span><strong>White</strong> order, protection, small armies</span></li>
+          <li><i class="ms ms-u ms-cost ms-shadow" aria-hidden="true"></i><span><strong>Blue</strong> knowledge, trickery, counterspells</span></li>
+          <li><i class="ms ms-b ms-cost ms-shadow" aria-hidden="true"></i><span><strong>Black</strong> ambition, sacrifice, destroying creatures</span></li>
+          <li><i class="ms ms-r ms-cost ms-shadow" aria-hidden="true"></i><span><strong>Red</strong> speed, fire, direct damage</span></li>
+          <li><i class="ms ms-g ms-cost ms-shadow" aria-hidden="true"></i><span><strong>Green</strong> nature, big creatures, extra mana</span></li>
+        </ul></div></li>
+      <li><div><h3>Cast spells</h3><p>Every other card is a spell. The main kinds are:</p>
+        <ul class="types">
+          <li><i class="ms ms-creature" aria-hidden="true"></i><span><strong>Creatures</strong> stay on the table to attack and block.</span></li>
+          <li><i class="ms ms-instant" aria-hidden="true"></i><span><strong>Instants</strong> are one-time effects you can cast any time, even on your opponent's turn.</span></li>
+          <li><i class="ms ms-sorcery" aria-hidden="true"></i><span><strong>Sorceries</strong> are one-time effects you cast on your own turn.</span></li>
+          <li><i class="ms ms-enchantment" aria-hidden="true"></i><span><strong>Enchantments</strong> and <i class="ms ms-artifact" aria-hidden="true"></i> <strong>artifacts</strong> stay on the table with a lasting effect.</span></li>
+        </ul></div></li>
+      <li><div><h3>Take your turn</h3><p>Untap your cards, draw a card, play a land and cast spells, then attack with your creatures. Your opponent's creatures can block. Any damage that gets through comes off their life total. Then it's their turn.</p></div></li>
+    </ol>
+    <p>That's the core of it. The fun is in the decisions: when to attack, what to hold back, and how to answer your opponent's plan. The best way to learn is to play a few games with someone who knows, and that's exactly what <a href="#events">our local nights</a> are for.</p>
+
+    <!-- Anatomy of a card -->
+    <div class="stack">
+      <h2>How to tell if a card is common</h2>
+      <p class="lede">Every Magic card shows its rarity in the color of its set symbol. In Pauper, you look for <strong>black</strong>.</p>
+    </div>
+    <div class="anatomy">
+      <figure class="mockcard">
+        <svg viewBox="0 0 300 420" role="img" aria-labelledby="mock-title mock-desc">
+          <title id="mock-title">Example Magic card, labeled</title>
+          <desc id="mock-desc">An original example card called Trinity River Heron. Its parts are numbered: 1 name, 2 mana cost, 3 art, 4 type line, 5 set symbol in black meaning common, 6 rules text, 7 power and toughness.</desc>
+          <defs>
+            <linearGradient id="mc-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B7A75"/><stop offset="1" stop-color="#FF934F"/></linearGradient>
+          </defs>
+          <rect x="4" y="4" width="292" height="412" rx="16" fill="#171A21"/>
+          <rect x="16" y="16" width="268" height="388" rx="8" fill="#b9d3e6"/>
+          <!-- name bar -->
+          <rect x="24" y="24" width="252" height="32" rx="6" fill="#eef3f7" stroke="#171A21" stroke-width="1.5"/>
+          <text x="34" y="46" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="15" fill="#171A21">Trinity River Heron</text>
+          <circle cx="243" cy="40" r="9" fill="#cac5c0" stroke="#171A21" stroke-width="1"/><text x="243" y="45" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="12" fill="#171A21">1</text>
+          <circle cx="264" cy="40" r="9" fill="#2f6fb3" stroke="#171A21" stroke-width="1"/><path d="M264 33c3 4.5 5 7 5 9.5a5 5 0 0 1-10 0c0-2.5 2-5 5-9.5z" fill="#eef3f7"/>
+          <!-- art -->
+          <rect x="24" y="62" width="252" height="170" fill="url(#mc-sky)" stroke="#171A21" stroke-width="1.5"/>
+          <circle cx="210" cy="112" r="20" fill="#FFD7B5" opacity=".9"/>
+          <path d="M24 232V188h14v-22h10v22h12v-40l8-14 8 14v40h10v-28h16v28h8v-50h18v50h10v-18h14v18h12v-34h12v34h10v-24l10-10 10 10v24h12v-16h14v16h20v44z" fill="#171A21"/>
+          <path d="M24 214c40-8 80 6 126 0s90-10 126-2v20H24z" fill="#0b4f4c" opacity=".85"/>
+          <path d="M120 104c14-6 26-2 34 6 6-10 18-14 30-10-10 2-18 8-22 16l-8 4c-10-6-22-10-34-16z" fill="#eef3f7"/>
+          <path d="M152 118l-4 22M156 118l2 20" stroke="#eef3f7" stroke-width="2.5"/>
+          <!-- type line -->
+          <rect x="24" y="238" width="252" height="28" rx="6" fill="#eef3f7" stroke="#171A21" stroke-width="1.5"/>
+          <text x="34" y="257" font-family="Inter, Arial, sans-serif" font-weight="600" font-size="12.5" fill="#171A21">Creature — Bird</text>
+          <path d="M256 243l3.2 6.6 7.3 1-5.3 5.1 1.3 7.2-6.5-3.4-6.5 3.4 1.3-7.2-5.3-5.1 7.3-1z" fill="#171A21" stroke="#eef3f7" stroke-width=".8"/>
+          <!-- rules text -->
+          <rect x="24" y="272" width="252" height="104" rx="4" fill="#f6f2ea" stroke="#171A21" stroke-width="1.5"/>
+          <text font-family="Inter, Arial, sans-serif" font-size="12" fill="#171A21"><tspan x="34" y="294" font-weight="700">Flying</tspan><tspan x="34" y="314">When Trinity River Heron enters,</tspan><tspan x="34" y="330">draw a card.</tspan></text>
+          <text font-family="Inter, Arial, sans-serif" font-size="11" font-style="italic" fill="#5b6270"><tspan x="34" y="356">It fishes the river at dawn, long</tspan><tspan x="34" y="370">before the city wakes.</tspan></text>
+          <!-- p/t -->
+          <rect x="226" y="364" width="50" height="28" rx="6" fill="#eef3f7" stroke="#171A21" stroke-width="1.5"/>
+          <text x="251" y="383" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="14" fill="#171A21">1/1</text>
+          <text x="24" y="404" font-family="Inter, Arial, sans-serif" font-size="8" fill="#171A21" opacity=".75">EXAMPLE CARD · NOT A REAL MAGIC CARD</text>
+          <!-- numbered callouts -->
+          <g class="callouts" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="12" text-anchor="middle">
+            <g transform="translate(14,40)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">1</text></g>
+            <g transform="translate(286,22)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">2</text></g>
+            <g transform="translate(40,82)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">3</text></g>
+            <g transform="translate(14,252)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">4</text></g>
+            <g transform="translate(286,252)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">5</text></g>
+            <g transform="translate(14,300)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">6</text></g>
+            <g transform="translate(286,378)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">7</text></g>
+          </g>
+        </svg>
+        <figcaption>An example card we made up. Real cards follow the same layout.</figcaption>
+      </figure>
+      <div class="stack">
+        <ol class="parts">
+          <li><strong>Name.</strong> Every card has a unique name.</li>
+          <li><strong>Mana cost.</strong> What you pay to cast it. This one costs one blue mana plus one mana of any color.</li>
+          <li><strong>Art.</strong> Just for looks, but it's half the fun.</li>
+          <li><strong>Type line.</strong> What kind of card it is: creature, instant, land and so on.</li>
+          <li class="hl"><strong>Set symbol.</strong> Shows which set the card is from. <strong>Its color is the rarity.</strong> Black means common, so this card would be Pauper legal (as long as it isn't on the banned list).</li>
+          <li><strong>Rules text.</strong> What the card does. Italic text below it is flavor text, just for story.</li>
+          <li><strong>Power / toughness.</strong> Creatures only. Power is the damage it deals in combat, toughness is the damage it can take.</li>
+        </ol>
+        <div class="panel rarity">
+          <h3>Set symbol colors</h3>
+          <ul class="rarities">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.8 1.2 6.9L12 17.7 5.9 21l1.2-6.9-5-4.8 6.9-1z" fill="#171A21"/></svg><span><strong>Black</strong> Common. <em>Pauper legal.</em></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="rs-u" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3e8ec"/><stop offset="1" stop-color="#7f8a94"/></linearGradient></defs><path d="M12 2l3 6.3 6.9 1-5 4.8 1.2 6.9L12 17.7 5.9 21l1.2-6.9-5-4.8 6.9-1z" fill="url(#rs-u)" stroke="#171A21" stroke-width=".8"/></svg><span><strong>Silver</strong> Uncommon</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="rs-r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#a7822a"/></linearGradient></defs><path d="M12 2l3 6.3 6.9 1-5 4.8 1.2 6.9L12 17.7 5.9 21l1.2-6.9-5-4.8 6.9-1z" fill="url(#rs-r)" stroke="#171A21" stroke-width=".8"/></svg><span><strong>Gold</strong> Rare</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="rs-m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6a04d"/><stop offset="1" stop-color="#c0391b"/></linearGradient></defs><path d="M12 2l3 6.3 6.9 1-5 4.8 1.2 6.9L12 17.7 5.9 21l1.2-6.9-5-4.8 6.9-1z" fill="url(#rs-m)" stroke="#171A21" stroke-width=".8"/></svg><span><strong>Orange-red</strong> Mythic rare</span></li>
+          </ul>
+          <p class="cards">One catch: some cards have been printed at different rarities over the years. If a card was printed as a common <em>even once</em> in a paper set or on Magic Online, it's legal in Pauper, even if your copy has a silver or gold symbol. The quickest check is to search the card on <a href="https://scryfall.com/search?q=legal%3Apauper" target="_blank" rel="noopener">Scryfall</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="stack">
+      <h2>Where Pauper came from</h2>
+      <p class="lede" id="history-lede">Pauper started as a fan-made idea and grew into a format played in game stores around the world. Here's how it got here.</p>
+    </div>
+    <ol class="timeline">
+      <li><span class="when">Late 2000s</span><div><h3>Players invent it</h3><p>Magic Online players started building decks with nothing but commons, and community groups like the Pauper Deck Challenge ran their own events.</p></div></li>
+      <li><span class="when">Dec 1, 2008</span><div><h3>Official online</h3><p>Wizards of the Coast made Pauper an official Magic Online format, with its own events and its own banned list.</p></div></li>
+      <li><span class="when">2010s</span><div><h3>Spreads to game stores</h3><p>Pauper became one of the most-played formats on Magic Online, and players began bringing their decks to local stores, using the online banned list as the rules.</p></div></li>
+      <li><span class="when">June 2019</span><div><h3>Official in paper</h3><p>Wizards sanctioned Pauper for tabletop play. Any card printed as a common in a paper set or on Magic Online became legal, so paper and online players share one card pool.</p></div></li>
+      <li><span class="when">January 2022</span><div><h3>The community gets a voice</h3><p>Wizards formed the Pauper Format Panel: Gavin Verhey and six well-known Pauper players from around the world who help guide bans and keep the format healthy.</p></div></li>
+      <li><span class="when">2026</span><div><h3>DFW Pauper</h3><p>Dallas-Fort Worth players start bringing every local Pauper night together in one place. That's us, and you're invited.</p></div></li>
+    </ol>
+
+    <div class="panel feature cta">
+      <h3>Ready to play?</h3>
+      <p>You don't need a collection, experience or a big budget to try it. Come to a local night, tell the store it's your first time, and borrow a deck. Regulars are happy to help.</p>
+      <div class="row">
+        <a class="btn" href="#events">See this week's events</a>
+        <a class="btn ghost light" href="#faq">Read the FAQ</a>
+      </div>
     </div>
   </section>
 
@@ -428,7 +607,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
   var TZ = "America/Chicago";
   var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  var VIEWS = ["home","events","start","meta","banned","faq","about"];
+  var VIEWS = ["home","what-is-pauper","events","start","meta","banned","faq","about"];
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
   function getJSON(path) { return fetch(path, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(path); return r.json(); }); }
