@@ -1,0 +1,64 @@
+name: Weekly event posts
+
+on:
+  schedule:
+    # Mondays 14:00 UTC = 8 AM Central (9 AM during daylight time). GitHub may run it a few minutes late.
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "preview = send to the private mod channel only; publish = post publicly"
+        type: choice
+        options: [preview, publish]
+        default: preview
+      platforms:
+        description: "Which platforms to publish to"
+        default: "discord,bluesky,x,facebook,instagram"
+      date:
+        description: "Optional: any date in the week to post about (YYYY-MM-DD)"
+        default: ""
+
+concurrency: weekly-posts
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      # Path to the shared events file (same one the website uses).
+      EVENTS_FILE: ${{ vars.EVENTS_FILE || 'data/events.json' }}
+      SITE_FILE: ${{ vars.SITE_FILE || 'data/site.json' }}
+      LOGO_FILE: ${{ vars.LOGO_FILE || 'assets/logo.png' }}
+      DISCORD_PREVIEW_WEBHOOK_URL: ${{ secrets.DISCORD_PREVIEW_WEBHOOK_URL }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+      BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+      META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+      META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
+      INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r poster/requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - name: Build and send
+        run: |
+          # Scheduled runs only preview, unless the repo variable AUTO_PUBLISH is "true".
+          MODE="${{ inputs.mode }}"
+          if [ -z "$MODE" ]; then
+            if [ "${{ vars.AUTO_PUBLISH }}" = "true" ]; then MODE=publish; else MODE=preview; fi
+          fi
+          ARGS="--mode $MODE --events $EVENTS_FILE --site $SITE_FILE"
+          [ -n "${{ inputs.platforms }}" ] && ARGS="$ARGS --platforms ${{ inputs.platforms }}"
+          [ -n "${{ inputs.date }}" ] && ARGS="$ARGS --date ${{ inputs.date }}"
+          python -m poster.main $ARGS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: weekly-posts
+          path: output/
