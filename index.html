@@ -133,6 +133,11 @@ ol.parts li { counter-increment: p; position: relative; padding-left: 38px; min-
 ol.parts li::before { position: absolute; left: 0; top: 0; content: counter(p); width: 24px; height: 24px; border-radius: 50%; background: var(--hot); color: var(--ink); border: 2px solid var(--ink); font: 800 .75rem/20px var(--body); text-align: center; }
 ol.parts li.hl { background: var(--hot-soft); border-radius: 8px; padding: 10px 10px 10px 48px; margin-inline: -10px; }
 ol.parts li.hl::before { left: 10px; top: 10px; }
+.collector-zoom { width: 100%; height: auto; max-width: 440px; }
+dl.collector-key { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; align-items: baseline; }
+dl.collector-key dt { font-weight: 800; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+dl.collector-key dd { margin: 0; }
+dl.collector-key dt.hl { justify-self: start; border: 2px solid var(--hot); background: var(--hot-soft); color: #171A21; border-radius: 6px; padding: 0 6px; }
 ul.rarities { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 ul.rarities li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: center; }
 ul.rarities svg { width: 24px; height: 24px; }
@@ -350,7 +355,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <figure class="mockcard">
         <svg viewBox="0 0 300 420" role="img" aria-labelledby="mock-title mock-desc">
           <title id="mock-title">Example Magic card, labeled</title>
-          <desc id="mock-desc">An original example card called Trinity River Heron. Its parts are numbered: 1 name, 2 mana cost, 3 art, 4 type line, 5 set symbol in black meaning common, 6 rules text, 7 power and toughness, 8 the rarity letter C in the collector info at the bottom left, meaning common.</desc>
+          <desc id="mock-desc">An original example card called Trinity River Heron. Its parts are numbered: 1 name, 2 mana cost, 3 art, 4 type line, 5 set symbol in black meaning common, 6 rules text, 7 power and toughness, 8 the collector info at the bottom left: collector number, rarity letter C meaning common, set code, language and artist.</desc>
           <defs>
             <linearGradient id="mc-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B7A75"/><stop offset="1" stop-color="#FF934F"/></linearGradient>
           </defs>
@@ -380,9 +385,10 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
           <rect x="226" y="364" width="50" height="28" rx="6" fill="#eef3f7" stroke="#171A21" stroke-width="1.5"/>
           <text x="251" y="383" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="14" fill="#171A21">1/1</text>
           <!-- collector info (bottom left) -->
-          <text font-family="Inter, Arial, sans-serif" font-size="8.5" fill="#171A21"><tspan x="30" y="389">042/271 <tspan dx="2" font-weight="800">C</tspan></tspan><tspan x="30" y="400">DFW · EN</tspan></text>
+          <text font-family="Inter, Arial, sans-serif" font-size="8.5" fill="#171A21"><tspan x="30" y="389">042/271 <tspan dx="2" font-weight="800">C</tspan></tspan><tspan x="30" y="400">DFW · EN</tspan><tspan x="86" y="400" font-weight="700" letter-spacing=".3">JO EXAMPLE</tspan></text>
+          <path transform="translate(73,393.5) scale(0.55)" d="M0 4h10l2-2.5h2.5L20 5l-5.5 3.5H12L10 6H0z" fill="#171A21"/>
           <rect x="64.5" y="380" width="11" height="12" rx="2" fill="none" stroke="#FF934F" stroke-width="1.8"/>
-          <text x="216" y="402" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="6.5" fill="#171A21" opacity=".75">EXAMPLE · NOT A REAL CARD</text>
+          <text x="216" y="389" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="6.5" fill="#171A21" opacity=".75">EXAMPLE · NOT A REAL CARD</text>
           <!-- numbered callouts -->
           <g class="callouts" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="12" text-anchor="middle">
             <g transform="translate(14,40)"><circle r="11" fill="#FF934F" stroke="#171A21" stroke-width="2"/><text y="4.5" fill="#171A21">1</text></g>
@@ -406,8 +412,27 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
           <li class="hl"><strong>Set symbol.</strong> Shows which set the card is from. <strong>Its color is the rarity.</strong> Black means common, so this card would be Pauper legal (as long as it isn't on the banned list).</li>
           <li><strong>Rules text.</strong> What the card does. Italic text below it is flavor text, just for story.</li>
           <li><strong>Power / toughness.</strong> Creatures only. Power is the damage it deals in combat, toughness is the damage it can take.</li>
-          <li class="hl"><strong>Rarity letter.</strong> Newer cards also print the rarity in the small collector info in the bottom-left corner: <strong>C</strong> for common, U for uncommon, R for rare and M for mythic. A <strong>C</strong> here means the same thing as a black set symbol.</li>
+          <li class="hl"><strong>Collector info.</strong> The small print in the bottom-left corner. On newer cards it includes the <strong>rarity letter</strong>: <strong>C</strong> means common, the same as a black set symbol. It also names the <strong>artist</strong>. See the close-up below.</li>
         </ol>
+        <div class="panel collector">
+          <h3>The bottom-left corner, up close</h3>
+          <svg class="collector-zoom" viewBox="0 0 400 110" role="img" aria-labelledby="ci-title">
+            <title id="ci-title">Close-up of the example card's collector info: 042/271 C on the first line, DFW, EN and a paintbrush icon followed by the artist name Jo Example on the second line. The C and the artist are highlighted.</title>
+            <rect x="0" y="0" width="400" height="110" rx="10" fill="#b9d3e6"/>
+            <text font-family="Inter, Arial, sans-serif" font-size="24" fill="#171A21"><tspan x="22" y="46">042/271</tspan><tspan x="134" y="46" font-weight="800">C</tspan><tspan x="22" y="88">DFW · EN</tspan><tspan x="206" y="88" font-weight="700" letter-spacing="1">JO EXAMPLE</tspan></text>
+            <path transform="translate(170,73) scale(1.6)" d="M0 4h10l2-2.5h2.5L20 5l-5.5 3.5H12L10 6H0z" fill="#171A21"/>
+            <rect x="126" y="20" width="32" height="34" rx="5" fill="none" stroke="#FF934F" stroke-width="3"/>
+            <rect x="162" y="62" width="226" height="36" rx="5" fill="none" stroke="#FF934F" stroke-width="3"/>
+          </svg>
+          <dl class="collector-key">
+            <dt class="mono">042/271</dt><dd><strong>Collector number.</strong> This is card 42 of the 271 cards in its set.</dd>
+            <dt class="mono hl">C</dt><dd><strong>Rarity letter.</strong> C common, U uncommon, R rare, M mythic. This tells you the rarity of <em>this printing</em>, just like the set symbol's color.</dd>
+            <dt class="mono">DFW</dt><dd><strong>Set code.</strong> A short code for the set. Ours is made up; a real one looks like C18 for Commander 2018.</dd>
+            <dt class="mono">EN</dt><dd><strong>Language.</strong> EN is English. Cards are printed in many languages and all of them are legal.</dd>
+            <dt class="mono hl"><svg viewBox="0 0 20 10" width="20" height="10" aria-label="Paintbrush"><path d="M0 4h10l2-2.5h2.5L20 5l-5.5 3.5H12L10 6H0z" fill="currentColor"/></svg> Name</dt><dd><strong>Artist.</strong> The paintbrush is followed by the name of the artist who painted the card's art.</dd>
+          </dl>
+          <p class="cards">Older cards don't have this line. Their artist is credited at the bottom center (often as "Illus."), and the set symbol's color is the only rarity marker.</p>
+        </div>
         <div class="panel rarity">
           <h3>Set symbol colors</h3>
           <ul class="rarities">
