@@ -24,6 +24,17 @@
       "discord_url": "",
       "facebook_url": "",
       "instagram_handle": ""
+    },
+    {
+      "id": "common-lands-flower-mound",
+      "name": "Common Lands",
+      "address": "",
+      "city": "Flower Mound",
+      "website": "",
+      "map_url": "",
+      "discord_url": "",
+      "facebook_url": "",
+      "instagram_handle": ""
     }
   ],
   "weekly": [
@@ -78,6 +89,19 @@
       "sample": false,
       "signup_url": "",
       "format_notes": ""
+    },
+    {
+      "id": "common-lands-flower-mound-wednesday",
+      "store": "common-lands-flower-mound",
+      "day": "Wednesday",
+      "start_time": "18:00",
+      "entry_fee": "$8",
+      "prizes": "A pack per win (store credit once packs run out)",
+      "notes": "16 players max, so reserve your seat early.",
+      "active": true,
+      "sample": false,
+      "signup_url": "",
+      "format_notes": "60-card Pauper, 3 rounds of Swiss"
     }
   ],
   "special": []
