@@ -4,7 +4,7 @@
     {
       "id": "where",
       "q": "When and where can I play?",
-      "a": "There are weekly Pauper nights on both the Dallas side and the Fort Worth side. The Events page lists every store with its day, start time and entry fee. Tap a day at the top of the schedule to see just that night."
+      "a": "There are weekly Pauper events on both the Dallas side and the Fort Worth side. The Events page lists every store with its day, start time and entry fee. Tap a day at the top of the schedule to see just that day's events."
     },
     {
       "id": "show-up",
@@ -19,7 +19,7 @@
     {
       "id": "bring",
       "q": "What do I need to bring?",
-      "a": "A Pauper-legal deck of at least 60 cards, up to 15 sideboard cards, card sleeves, dice or counters, and a way to track life (a pen and paper works). Bring the entry fee too. Most nights are $5 to $10."
+      "a": "A Pauper-legal deck of at least 60 cards, up to 15 sideboard cards, card sleeves, dice or counters, and a way to track life (a pen and paper works). Bring the entry fee too. Most events cost $5 to $10."
     },
     {
       "id": "cost",

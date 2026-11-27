@@ -236,7 +236,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <div class="panel">
         <div class="eyebrow">Store owners</div>
         <h3>Host a Pauper night</h3>
-        <p>Pauper fires with small budgets and draws players who want a weeknight event that isn't Commander. Tell us your night and we'll post it to every DFW Pauper channel.</p>
+        <p>Pauper fires with small budgets and draws players who want a weeknight event that isn't Commander. Tell us your day and time and we'll post it to every DFW Pauper channel.</p>
         <a href="#about">Get in touch</a>
       </div>
     </div>
@@ -291,7 +291,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       <div class="panel">
         <h3>How a Pauper night works</h3>
         <ul class="plain">
-          <li>Arrive about 15 minutes early and register at the counter. Most nights don't need a pre-signup, but check the event's notes.</li>
+          <li>Arrive about 15 minutes early and register at the counter. Most events don't need a pre-signup, but check the event's notes.</li>
           <li>Pay the entry fee, usually $5 to $10.</li>
           <li>You play 3 or 4 rounds of Swiss, so you face a new opponent each round with a similar record.</li>
           <li>Each match is best of three games. You can swap sideboard cards in between games.</li>
@@ -407,7 +407,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       </div>
       <div class="panel">
         <h3>For stores</h3>
-        <p>Running Pauper, or want to? Send us your night, time, entry fee and prizes and we'll list it here and post it every week. We can help with promotion and prize ideas.</p>
+        <p>Running Pauper, or want to? Send us your day, time, entry fee and prizes and we'll list it here and post it every week. We can help with promotion and prize ideas.</p>
         <p id="contact"></p>
       </div>
     </div>
@@ -492,7 +492,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     var sampleNote = weekly.concat(special).some(function (x) { return x.ev.sample; })
       ? '<div class="callout"><strong>Sample listings.</strong> We are lining up our first partner stores. These show how events will look and will be replaced with real ones.</div>' : "";
 
-    // Group weekly nights by store region ("Dallas" / "Fort Worth"), matching the flyer's Dallas side / Fort Worth side split.
+    // Group weekly events by store region ("Dallas" / "Fort Worth"), matching the flyer's Dallas side / Fort Worth side split.
     var regions = [];
     allWeekly.forEach(function (x) { var s = stores[x.ev.store], r = (s && s.region) || "Other"; if (regions.indexOf(r) < 0) regions.push(r); });
     var order = ["Dallas", "Fort Worth"];
@@ -500,8 +500,8 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
     var grouped = regions.map(function (r) {
       var items = weekly.filter(function (x) { var s = stores[x.ev.store]; return ((s && s.region) || "Other") === r; });
       var label = r === "Other" ? "More of DFW" : r + " side";
-      var body = items.length ? items.map(card).join("") : '<div class="empty">No ' + esc(dayFilter) + ' nights on this side.</div>';
-      return '<div class="stack"><h3 class="region">' + esc(label) + ' <span class="count">' + items.length + (items.length === 1 ? ' night' : ' nights') + '</span></h3>' + body + '</div>';
+      var body = items.length ? items.map(card).join("") : '<div class="empty">No ' + esc(dayFilter) + ' events on this side.</div>';
+      return '<div class="stack"><h3 class="region">' + esc(label) + ' <span class="count">' + items.length + (items.length === 1 ? ' event' : ' events') + '</span></h3>' + body + '</div>';
     }).join("");
     var weeklyEl = document.getElementById("weekly-events");
     weeklyEl.classList.toggle("cols", regions.length > 1 && !sampleNote);
@@ -532,7 +532,7 @@ footer .motto { font: 900 .9rem/1 var(--display); text-transform: uppercase; let
       var ids = {}; allWeekly.forEach(function (x) { ids[x.ev.store] = 1; }); storeCount = Object.keys(ids).length;
     }
     var items = [];
-    if (weeklyCount) items.push([weeklyCount, "Weekly nights"]);
+    if (weeklyCount) items.push([weeklyCount, "Weekly events"]);
     if (storeCount) items.push([storeCount, "Stores"]);
     var cd = siteData.community_discord;
     if (cd && cd.members) items.push([cd.members, "In the local Discord"]);
